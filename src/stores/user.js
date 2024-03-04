@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { setToken, removeToken ,setRsapublickey,setTenantId} from '@/utils/auth'
+import { setToken, removeToken ,setRsapublickey,setTenantId,setUserId} from '@/utils/auth'
 import { apilogin, apilogout, apiinitrsakey,apiGetUserInfo } from '@/api/login/login'
 
 export const useUserStore = defineStore({
@@ -33,6 +33,7 @@ export const useUserStore = defineStore({
           apiGetUserInfo().then(res => {
             console.info(res)
             this.userId = res.id;
+            setUserId(this.userId);
             resolve()
           })
         }).catch(error => {

@@ -1,7 +1,7 @@
 import router from "./router"
 import { useUserStore } from "./stores/user"
 import { useSettingStore } from "./stores/setting"
-import { getToken } from "./utils/auth"
+import { getToken,getUserId } from "./utils/auth"
 
 
 
@@ -17,10 +17,11 @@ router.beforeEach((to, from, next) => {
         if (to.path === '/login') {
             next({ path: '/' })
         } else {
-            if (userStore.userId == null) {
+            let uid = getUserId();
+            if (uid == null) {
                 // 判断当前用户是否已拉取完user_info信息
                 userStore.GetUserInfo();
-                next({ ...to, replace: true })
+                next({ ...to, replace: false })
             } else {
                 next()
             }

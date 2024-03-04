@@ -333,7 +333,6 @@ import { reactive,onMounted } from "vue";
 import { Button, Divider, Dialog } from "vant";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
-import { setClear} from '@/utils/auth'
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -344,7 +343,7 @@ const form = reactive({
 });
 
 onMounted(async () => {
-  setClear();
+
   userStore.Initrsakey();
 });
 

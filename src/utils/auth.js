@@ -1,13 +1,26 @@
 import { Local } from "./storage";
 
+const UserId = 'Admin-UserId';
+
 const TokenKey = 'Admin-Token';
 
 const TenantKey = 'Admin-Tenantid';
 
 const Rsapublickey = 'Admin-Rsapublickey';
 
-export function setClear(){
-  return Local.clear();
+
+
+
+export function getUserId() {
+  return Local.get(UserId);
+}
+
+export function setUserId(uid) {
+  return Local.set(UserId, uid);
+}
+
+export function removeUserId() {
+  return Local.remove(UserId);
 }
 
 export function getToken() {

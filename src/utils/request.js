@@ -21,9 +21,8 @@ service.interceptors.request.use(
         if (!config.headers) {
             throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);
         }
-       let isLogin = userStore.isLogin;
-        if (isLogin) {
-            config.headers[userStore.tokenName] = getToken();
+        if (getToken()) {
+            config.headers['Satoken'] = getToken();
         }
         if (config.data != null) {
             let key = getKey()
@@ -77,9 +76,7 @@ service.interceptors.response.use(
 
 // 统一处理请求响应异常
 function handleError() {
-    const userStore = useUserStore();
-    let isLogin = userStore.isLogin;
-    if (isLogin) {
+    if (getToken()) {
         // ElMessageBox.confirm('您的登录账号已失效，请重新登录', {
         //     confirmButtonText: '再次登录',
         //     cancelButtonText: '取消',

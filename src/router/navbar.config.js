@@ -4,7 +4,7 @@ export default [
         path: '/msg',
         component: () => import('@/views/msg/index.vue'),
         meta: {
-            title: '消息',
+            title: '首页',
             icon: 'chat-o'
         }
     },
@@ -13,7 +13,7 @@ export default [
         path: '/work',
         component: () => import('@/views/work/index.vue'),
         meta: {
-            title: '工作台',
+            title: '代付',
             icon: 'apps-o',
             // isNavBar: false
         }
@@ -23,7 +23,7 @@ export default [
         path: '/permission',
         component: () => import('@/views/permission/index.vue'),
         meta: {
-            title: '权限演示',
+            title: '换汇',
             icon: 'browsing-history-o',
             // isNavBar: false
         }
