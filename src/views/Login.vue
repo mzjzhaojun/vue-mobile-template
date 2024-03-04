@@ -324,26 +324,16 @@
         <span>忘记密码？</span>
       </div>
       <Button block type="primary" @click="onLogin">登录</Button>
-      <div class="login-other">
-        <Divider>其他登陆方式</Divider>
-        <ul>
-          <li>
-            <Button size="small" @click="Dialog({ message: '点击微信' })">微信</Button>
-          </li>
-          <li>
-            <Button size="small" @click="Dialog({ message: '点击淘宝' })">淘宝</Button>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>
 
 <script setup name="Login">
-import { reactive } from "vue";
+import { reactive,onMounted } from "vue";
 import { Button, Divider, Dialog } from "vant";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
+import { setClear} from '@/utils/auth'
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -353,10 +343,14 @@ const form = reactive({
   password: "",
 });
 
-function onLogin() {
+onMounted(async () => {
+  setClear();
+  userStore.Initrsakey();
+});
 
+function onLogin() {
   userStore.Login(form).then((response) => {
-    router.push({path: '/'})
+      router.push({path: '/'})
   }).catch((err) => {
     Dialog.alert({message: err});
   })

@@ -12,10 +12,14 @@ import './assets/styles/index.scss'
 import './permission'
 import directive from './directive'
 
+import { Dialog } from 'vant';
+
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+
+app.use(Dialog);
 
 directive(app);
 

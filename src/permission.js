@@ -4,6 +4,7 @@ import { useSettingStore } from "./stores/setting"
 import { getToken } from "./utils/auth"
 
 
+
 const whiteList = ['/login']
 
 router.beforeEach((to, from, next) => {
@@ -18,13 +19,8 @@ router.beforeEach((to, from, next) => {
         } else {
             if (userStore.userId == null) {
                 // 判断当前用户是否已拉取完user_info信息
-                userStore.GetInfo(getToken()).then(() => {
-                    next({ ...to, replace: true })
-                }).catch(err => {
-                    userStore.LogOut().then(() => {
-                        next({ path: '/' })
-                    })
-                })
+                userStore.GetUserInfo();
+                next({ ...to, replace: true })
             } else {
                 next()
             }
