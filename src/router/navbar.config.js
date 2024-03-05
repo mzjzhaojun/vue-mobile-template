@@ -1,29 +1,29 @@
 export default [
     {
-        name: 'msg',
-        path: '/msg',
-        component: () => import('@/views/msg/index.vue'),
+        name: 'home',
+        path: '/home',
+        component: () => import('@/views/home/index.vue'),
         meta: {
             title: '首页',
             icon: 'apps-o'
         }
     },
     {
-        name: 'work',
-        path: '/work',
-        component: () => import('@/views/work/index.vue'),
+        name: 'payout',
+        path: '/payout',
+        component: () => import('@/views/payout/index.vue'),
         meta: {
             title: '代付',
             icon: 'gold-coin-o',
         }
     },
     {
-        name: 'permission',
-        path: '/permission',
-        component: () => import('@/views/permission/index.vue'),
+        name: 'exchange',
+        path: '/exchange',
+        component: () => import('@/views/exchange/index.vue'),
         meta: {
             title: '换汇',
-            icon: 'balance-list-o',
+            icon: 'exchange',
         }
     },
     {

@@ -5,89 +5,68 @@
         <div class="profile-info">
           <van-image class="profile-info-avatar" round fit="cover" src="../other/avatar.png"></van-image>
           <div class="profile-info-main">
-            <span class="profile-info-main-nickname">码农小易</span>
-            <span class="profile-info-main-phone">131****0000</span>
+            <span class="profile-info-main-nickname">{{getUserName()}}</span>
           </div>
         </div>
         <div class="profile-number">
           <div class="profile-number-box">
-            <span class="profile-number-box-num">1,892</span>
-            <span class="profile-number-box-text">我的金币</span>
+            <span class="profile-number-box-num">{{formdata.totalincome}}</span>
+            <span class="profile-number-box-text">充值金额</span>
           </div>
           <div class="profile-number-box">
-            <span class="profile-number-box-num">212</span>
-            <span class="profile-number-box-text">今日金币</span>
+            <span class="profile-number-box-num">{{formdata.withdrawamount}}</span>
+            <span class="profile-number-box-text">代付金额</span>
           </div>
           <div class="profile-number-box">
-            <span class="profile-number-box-num">2.3</span>
-            <span class="profile-number-box-text">今日阅读(分钟)</span>
+            <span class="profile-number-box-num">{{formdata.balance}}</span>
+            <span class="profile-number-box-text">余额</span>
           </div>
         </div>
       </div>
-      <GridCard class="profile-action-card" :items="ActionCard"></GridCard>
-      <GridCard :columnNum="3" title="系统专区" :items="SystemCard"></GridCard>
+      <van-grid clickable :column-num="4">
+        <van-grid-item icon="balance-pay" text="充值" @click="onbalance" />
+        <van-grid-item icon="refund-o" text="充值记录" @click="onbalancerecord" />
+        <van-grid-item icon="coupon-o" text="我的通道" @click="onaisle" />
+        <van-grid-item icon="revoke" text="退出" @click="onLogout" />
+      </van-grid>
+
     </div>
   </div>
 </template>
 
 <script setup name="Profile">
 
-import { reactive } from 'vue';
-import { Cell, CellGroup } from "vant";
+import {onMounted, reactive,ref} from 'vue';
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
-import { Image as VanImage } from "vant";
-import GridCard from "@/components/GridCard/index.vue"
+import { getUserName} from '@/utils/auth'
+import merchantaccountApi from "@/api/merchant/merchantaccount";
 
 const userStore = useUserStore();
 const router = useRouter();
+let formdata = ref({});
+
+onMounted(async () => {
+  let result = await merchantaccountApi.get();
+  console.info(result)
+  formdata.value = result.body;
+});
+
+function onbalance() {
+  router.push({ path: '/my/balance' })
+}
+function onbalancerecord() {
+  router.push({ path: '/my/balancerecord' })
+}
+function onaisle() {
+  router.push({ path: '/my/aisle' })
+}
 
 function onLogout() {
   userStore.LogOut().then(() => {
     router.push({ path: "/login" });
   });
 }
-
-
-const SystemCard = [
-  {
-    text: '返回主页',
-    icon: 'home-o',
-    to: '/'
-  },
-  {
-    text: '在Github点赞',
-    icon: 'good-job-o',
-    url: 'https://github.com/Coder-XiaoYi/vue-mobile-template'
-  },
-  {
-    text: '在Gitee点赞',
-    icon: 'good-job-o',
-    url: 'https://gitee.com/liupeiqiang/vue-mobile-template'
-  }
-]
-
-const ActionCard = reactive({
-  Withdrawal: {
-    text: '兑换提现',
-    svg: 'Withdrawal'
-  },
-  Friend: {
-    text: '邀请好友',
-    svg: 'Friend'
-  },
-  Order: {
-    text: '我的订单',
-    svg: 'Order'
-  },
-  Profit: {
-    text: '收益明细',
-    svg: 'Profit'
-  }
-})
-
-ActionCard.Order.dot = true;
-ActionCard.Profit.badge = "9+";
 
 </script>
 

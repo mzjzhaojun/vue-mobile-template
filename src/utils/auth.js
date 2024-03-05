@@ -8,7 +8,19 @@ const TenantKey = 'Admin-Tenantid';
 
 const Rsapublickey = 'Admin-Rsapublickey';
 
+const UserName = 'Admin-UserName';
 
+export function getUserName() {
+  return Local.get(UserName);
+}
+
+export function setUserName(uname) {
+  return Local.set(UserName, uname);
+}
+
+export function removeUserName() {
+  return Local.remove(UserName);
+}
 
 
 export function getUserId() {

@@ -12,7 +12,7 @@ import './assets/styles/index.scss'
 import './router/permission'
 import directive from './directive'
 
-import { List,Cell,Search,PullRefresh  } from 'vant';
+import { List,Cell,Search,PullRefresh,Grid,GridItem,Image} from 'vant';
 
 const app = createApp(App)
 
@@ -23,6 +23,9 @@ app.use(List);
 app.use(Cell);
 app.use(Search);
 app.use(PullRefresh);
+app.use(Grid);
+app.use(GridItem);
+app.use(Image);
 
 directive(app);
 

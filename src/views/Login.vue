@@ -297,7 +297,7 @@
     </div>
     <div class="login-content">
       <div class="login-title">
-        <h3>欢迎使用</h3>
+        <h4>欢迎使用</h4>
       </div>
       <div class="login-form">
         <div class="login-form-item">
@@ -320,9 +320,6 @@
           <input v-model="form.password" type="password" name="password" autocomplete="off" placeholder="请输入密码" />
         </div>
       </div>
-      <div class="login-forget">
-        <span>忘记密码？</span>
-      </div>
       <Button block type="primary" @click="onLogin">登录</Button>
     </div>
   </div>
@@ -330,7 +327,7 @@
 
 <script setup name="Login">
 import { reactive,onMounted } from "vue";
-import { Button, Divider, Dialog } from "vant";
+import { Button,Dialog } from "vant";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 
@@ -343,7 +340,6 @@ const form = reactive({
 });
 
 onMounted(async () => {
-
   userStore.Initrsakey();
 });
 

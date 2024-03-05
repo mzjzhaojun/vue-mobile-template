@@ -1,19 +1,28 @@
 export default [
     {
-        name: 'profile1',
-        path: '/my/profile1',
-        component: () => import('@/views/my/profile/profile1.vue'),
+        name: 'balancerecord',
+        path: '/my/balancerecord',
+        component: () => import('@/views/my/balancerecord.vue'),
         meta: {
-            title: '个人信息',
+            title: '充值记录',
             isNavBar: true
         }
     },
     {
-        name: 'profile2',
-        path: '/my/profile2',
-        component: () => import('@/views/my/profile/profile2.vue'),
+        name: 'balance',
+        path: '/my/balance',
+        component: () => import('@/views/my/balancerecord.vue'),
         meta: {
-            title: '个人信息',
+            title: '充值',
+            isNavBar: true
+        }
+    },
+    {
+        name: 'aisle',
+        path: '/my/aisle',
+        component: () => import('@/views/my/aisle.vue'),
+        meta: {
+            title: '我的通道',
             isNavBar: true
         }
     },
