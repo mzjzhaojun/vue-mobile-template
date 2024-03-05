@@ -9,17 +9,20 @@ import svgIcon from '@/components/SvgIcon/index.vue'
 import 'amfe-flexible/index.js'
 import './assets/styles/index.scss'
 
-import './permission'
+import './router/permission'
 import directive from './directive'
 
-import { Dialog } from 'vant';
+import { List,Cell,Search,PullRefresh  } from 'vant';
 
 const app = createApp(App)
 
 app.use(createPinia())
-app.use(router)
 
-app.use(Dialog);
+app.use(router)
+app.use(List);
+app.use(Cell);
+app.use(Search);
+app.use(PullRefresh);
 
 directive(app);
 

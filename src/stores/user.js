@@ -44,13 +44,11 @@ export const useUserStore = defineStore({
     },
     Initrsakey: function () {
       apiinitrsakey().then(res => {
-        console.info(res)
         setRsapublickey(res);
       })
     },
     GetUserInfo: function () {
       apiGetUserInfo().then(res => {
-        console.info(res)
         this.userId = res.id;
       })
     },

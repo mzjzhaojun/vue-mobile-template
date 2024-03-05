@@ -1,7 +1,7 @@
-import router from "./router"
-import { useUserStore } from "./stores/user"
-import { useSettingStore } from "./stores/setting"
-import { getToken,getUserId } from "./utils/auth"
+import router from "./index"
+import { useUserStore } from "../stores/user"
+import { useSettingStore } from "../stores/setting"
+import { getToken,getUserId } from "../utils/auth"
 
 
 

@@ -1,58 +1,95 @@
 <template>
   <div>
-    <MsgList :barData="barData" :msgData="data" @msgClick="onMsgClick" @msgRemove="onMsgRemove" @barClick="onBarClick"></MsgList>
+    <van-search
+        v-model="queryvalue"
+        input-align="center"
+        placeholder="请输入搜索名称"
+        @search="onSearch">
+    </van-search>
+    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+      <van-list
+          v-model:loading="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad">
+        <van-cell v-for="item in list" :key="item" :title="item.accname" :value="item.statusname" :label="item.bankname+'  '+' ￥:' +item.amount" is-link/>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
 <script setup name="Msg">
-import {reactive} from 'vue';
-import { Dialog } from 'vant';
-import MsgList from "@/components/MsgList/index.vue"
 
-const barData = reactive([
-  {
-    title: '今天是你的生日，点击领取礼品！',
-    icon: 'birthday-cake-o'
-  },
-  {
-    title: '定位已开启',
-    icon: 'guide-o'
+import {ref} from 'vue';
+import payoutApi from '@/api/account/payout.js';
+import {getUserId} from '@/utils/auth';
+
+const list = ref([]);
+const loading = ref(false);
+const finished = ref(false);
+const refreshing = ref(false);
+const pageParams = ref(1);
+const queryvalue = ref('');
+
+
+function onLoad(){
+
+   setTimeout(() => {
+     if (refreshing.value) {
+       list.value = [];
+       refreshing.value = false;
+     }
+    getData();
+   }, 1000);
+
+
+};
+
+function onSearch(){
+  list.value = [];
+  pageParams.value = 1;
+  getData();
+}
+
+async function getData(){
+  let page = {pageNum:pageParams.value,pageSize:10};
+  let params = {accname:queryvalue.value,userid:getUserId()}
+  let res = await payoutApi.page(params,page);
+  console.info(res)
+  if (res.body.records.length > 0) {
+    let data = res.body.records;
+    //  分页操作
+    if (data.length > 0) {
+      data.forEach(curr => {
+        list.value.push(curr);
+      })
+      loading.value = false;
+      pageParams.value++;
+    } else {
+      finished.value = true;
+    }
+  } else {
+    finished.value = true;
+    loading.value = false;
   }
-]);
+}
 
-const data = reactive([
-  { 
-    userId: '9b54c39939c3776bd706ad315452cde8',
-    avatar: './msg/avatar1.jpeg',
-    nickName: 'Jasmine',
-    newestMsg: '最近过得还好吗？',
-    unReadCount: 2,
-  },
-  { 
-    userId: '795d2d2f7711170a99958f8c8d195414',
-    avatar: './msg/avatar2.jpeg',
-    nickName: 'Amanda',
-    newestMsg: 'vue-mobile-template这个模板简直了！',
-    unReadCount: 0,
-  },
-  { 
-    userId: 'c4dec0b791ad3df3d4e1bace20dc9c69',
-    avatar: './msg/avatar3.jpeg',
-    nickName: 'Christine',
-    newestMsg: 'Hello~',
-    dot: true
-  },
-]);
 
-function onMsgClick(item){
-  Dialog({ message: `${item.nickName}被点击！` });
-}
-function onMsgRemove(item){
-  Dialog({ message: `${item.nickName}被移除！` });
-}
-function onBarClick(item){
-  Dialog({ message: `${item.title}被点击！` });
-}
+function onRefresh(){
+  // 清空列表数据
+  finished.value = false;
+
+  // 重新加载数据
+  // 将 loading 设置为 true，表示处于加载状态
+  loading.value = true;
+
+  pageParams.value = 1;
+
+  list.value = [];
+
+  onLoad();
+};
+
 </script>
 
 <style>
