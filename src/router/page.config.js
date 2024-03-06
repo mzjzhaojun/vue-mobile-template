@@ -44,4 +44,13 @@ export default [
             isNavBar: true
         }
     },
+    {
+        name: 'applyjournal',
+        path: '/my/applyjournal',
+        component: () => import('@/views/my/applyjournal.vue'),
+        meta: {
+            title: '提现记录',
+            isNavBar: true
+        }
+    },
 ]

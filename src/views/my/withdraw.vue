@@ -81,11 +81,15 @@ async function onSubmit(){
   }else{
     show.value = true;
     let res = await merchantaccountorderApi.withdraw(formdata.value);
-    Notify({type:'success',message: '提交成功' });
-    setTimeout(() => {
+    if(res.code == 200){
+      Notify({type:'success',message: '提交成功' });
+      setTimeout(() => {
+        show.value = false;
+        router.push({ path: '/my' })
+      }, 1000);
+    }else{
       show.value = false;
-      router.push({ path: '/my' })
-    }, 1000);
+    }
   }
 }
 

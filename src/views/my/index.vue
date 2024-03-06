@@ -28,9 +28,9 @@
         <van-grid-item icon="refund-o" text="充值记录" @click="onbalancerecord" />
         <van-grid-item icon="cash-o" text="提现" @click="onwithdraw" />
         <van-grid-item icon="after-sale" text="提现记录" @click="onwithdrawrecord" />
-        <van-grid-item icon="notes-o" text="换汇记录" @click="onaisle" />
+        <van-grid-item icon="notes-o" text="换汇记录" />
         <van-grid-item icon="service-o" text="我的通道" @click="onaisle" />
-        <van-grid-item icon="revoke" text="？？" @click="onaisle" />
+        <van-grid-item icon="comment-o" text="资金明细" @click="onapplyjournal" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
       <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">USDT代付(保一月)</van-divider>
@@ -96,8 +96,14 @@ function onwithdrawrecord() {
 }
 
 function onaisle() {
-
+  router.push({ path: '/my/aisle' })
 }
+
+function onapplyjournal() {
+  router.push({ path: '/my/applyjournal' })
+}
+
+
 
 function onLogout() {
   userStore.LogOut().then(() => {

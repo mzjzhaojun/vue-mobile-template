@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.accname" :value="item.statusname" :label="item.bankname+'  '+' ￥:' +item.amount" is-link/>
+        <van-cell v-for="item in list" :key="item" :title="item.name" :value="item.code"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -21,7 +21,8 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import payoutApi from '@/api/account/payout.js';
+import merchantaisleApi from "@/api/account/merchantaisle";
+
 import {getUserId} from '@/utils/auth';
 
 const list = ref([]);
@@ -34,13 +35,13 @@ const queryvalue = ref('');
 
 function onLoad(){
 
-   setTimeout(() => {
-     if (refreshing.value) {
-       list.value = [];
-       refreshing.value = false;
-     }
+  setTimeout(() => {
+    if (refreshing.value) {
+      list.value = [];
+      refreshing.value = false;
+    }
     getData();
-   }, 1000);
+  }, 1000);
 
 
 };
@@ -53,8 +54,8 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10};
-  let params = {accname:queryvalue.value,userid:getUserId()}
-  let res = await payoutApi.page(params,page);
+  let params = {userid:getUserId()}
+  let res = await merchantaisleApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;
@@ -76,11 +77,9 @@ async function getData(){
 
 
 function onRefresh(){
-  // 清空列表数据
+
   finished.value = false;
 
-  // 重新加载数据
-  // 将 loading 设置为 true，表示处于加载状态
   loading.value = true;
 
   pageParams.value = 1;

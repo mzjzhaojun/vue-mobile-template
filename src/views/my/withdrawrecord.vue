@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.accnumber+' '+item.amount +' / '+item.exchange" :value="item.statusname" :label="+item.amountreceived+'  '+item.create_time" is-link/>
+        <van-cell v-for="item in list" :key="item" :title="'￥'+item.amount+'   汇率:'+item.merchantexchange" :value="item.statusname" :label="item.accnumber" is-link/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -77,11 +77,9 @@ async function getData(){
 
 
 function onRefresh(){
-  // 清空列表数据
+
   finished.value = false;
 
-  // 重新加载数据
-  // 将 loading 设置为 true，表示处于加载状态
   loading.value = true;
 
   pageParams.value = 1;

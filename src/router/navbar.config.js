@@ -9,8 +9,8 @@ export default [
         }
     },
     {
-        name: 'payout',
-        path: '/payout',
+        name: 'homepay',
+        path: '/homepay',
         component: () => import('@/views/payout/index.vue'),
         meta: {
             title: '代付',

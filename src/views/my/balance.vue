@@ -131,11 +131,15 @@ async function onSubmit(){
     postdata = {imgurl:formdata.imgurl,remark:formdata.value.remark,usdt:formdata.value.usdt,merchantexchange:formdata.value.merchantexchange,exchange:formdata.value.exchange,amount:formdata.value.amount};
     let res = await merchantaccountorderApi.add(postdata);
 
-    Notify({type:'success',message: '提交成功' });
-    setTimeout(() => {
+    if(res.code == 200){
+      Notify({type:'success',message: '提交成功' });
+      setTimeout(() => {
+        show.value = false;
+        router.push({ path: '/my' })
+      }, 1000);
+    }else{
       show.value = false;
-      router.push({ path: '/my' })
-    }, 1000);
+    }
   }
 }
 

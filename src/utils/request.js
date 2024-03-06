@@ -9,7 +9,7 @@ import { getToken, removeToken ,getTenantId,getRsapublickey} from './auth';
 // 配置新建一个 axios 实例
 const service = axios.create({
     baseURL: import.meta.env.VITE_APP_SERVICE_API,
-    timeout: 50000,
+    timeout: 30000,
     headers: { 'Content-Type': 'application/json;charset=utf-8' },
 });
 
@@ -54,11 +54,11 @@ service.interceptors.response.use(
         const { code, msg } = res;
         if (code === 200) {
             return res;
-        } else {
-
-            Dialog.alert({ message: msg });
-
+        }else if (code === 401) {
             handleError();
+        } else {
+            Dialog.alert({ message: msg });
+            return res;
         }
     },
     (error) => {
@@ -66,9 +66,6 @@ service.interceptors.response.use(
         let msg = "服务器网络异常，请稍后再试!";
         if (error.code === "ERR_NETWORK") {
             Dialog.alert({ message: msg });
-        } else {
-            handleError();
-            return Promise.reject(new Error(msg));
         }
     }
 );

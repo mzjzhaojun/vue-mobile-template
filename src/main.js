@@ -11,7 +11,7 @@ import './assets/styles/index.scss'
 import './router/permission'
 import directive from './directive'
 
-import { List,Cell,Search,PullRefresh,Grid,GridItem,Image,Divider,Icon ,Form, Field, CellGroup,Button,Uploader,Notify,Overlay } from 'vant';
+import { List,Cell,Search,PullRefresh,Grid,GridItem,Image,Divider,Icon ,Form, Field, CellGroup,Button,Uploader,Notify,Overlay,Loading,Tag,Popover,Picker,Popup,Area } from 'vant';
 
 const app = createApp(App)
 
@@ -34,6 +34,12 @@ app.use(Button);
 app.use(Uploader);
 app.use(Notify);
 app.use(Overlay);
+app.use(Loading);
+app.use(Tag);
+app.use(Popover);
+app.use(Picker);
+app.use(Popup);
+app.use(Area);
 
 directive(app);
 app.component('svg-icon', svgIcon)
