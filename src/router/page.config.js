@@ -11,7 +11,7 @@ export default [
     {
         name: 'balance',
         path: '/my/balance',
-        component: () => import('@/views/my/balancerecord.vue'),
+        component: () => import('@/views/my/balance.vue'),
         meta: {
             title: '充值',
             isNavBar: true
@@ -23,6 +23,24 @@ export default [
         component: () => import('@/views/my/aisle.vue'),
         meta: {
             title: '我的通道',
+            isNavBar: true
+        }
+    },
+    {
+        name: 'withdraw',
+        path: '/my/withdraw',
+        component: () => import('@/views/my/withdraw.vue'),
+        meta: {
+            title: '提现',
+            isNavBar: true
+        }
+    },
+    {
+        name: 'withdrawrecord',
+        path: '/my/withdrawrecord',
+        component: () => import('@/views/my/withdrawrecord.vue'),
+        meta: {
+            title: '提现记录',
             isNavBar: true
         }
     },

@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.accname" :value="item.statusname" :label="item.bankname+'  '+' ￥:' +item.amount" is-link/>
+        <van-cell v-for="item in list" :key="item" :title="item.amount +' x ('+item.exchange+'+'+item.merchantexchange+')'" :value="item.statusname" :label="+item.amountreceived+'  '+item.create_time" is-link/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -21,7 +21,8 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import payoutApi from '@/api/account/payout.js';
+import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
+
 import {getUserId} from '@/utils/auth';
 
 const list = ref([]);
@@ -53,8 +54,8 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10};
-  let params = {accname:queryvalue.value,userid:getUserId()}
-  let res = await payoutApi.page(params,page);
+  let params = {accname:queryvalue.value,userid:getUserId(),type:20}
+  let res = await merchantaccountorderApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;

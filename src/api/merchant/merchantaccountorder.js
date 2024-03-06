@@ -27,7 +27,7 @@ export default {
   },
   withdraw(data) {
     return request({
-      url: BASE_API+'/withdraw',
+      url: BASE_API+'/appwithdraw',
       method: 'post',
       data: data,
     });

@@ -10,15 +10,15 @@
         </div>
         <div class="profile-number">
           <div class="profile-number-box">
-            <span class="profile-number-box-num">{{formdata.totalincome}}</span>
+            <span class="profile-number-box-num">￥{{formdata.totalincome}}</span>
             <span class="profile-number-box-text">充值金额</span>
           </div>
           <div class="profile-number-box">
-            <span class="profile-number-box-num">{{formdata.withdrawamount}}</span>
+            <span class="profile-number-box-num">￥{{formdata.withdrawamount}}</span>
             <span class="profile-number-box-text">代付金额</span>
           </div>
           <div class="profile-number-box">
-            <span class="profile-number-box-num">{{formdata.balance}}</span>
+            <span class="profile-number-box-num">￥{{formdata.balance}}</span>
             <span class="profile-number-box-text">余额</span>
           </div>
         </div>
@@ -26,10 +26,34 @@
       <van-grid clickable :column-num="4">
         <van-grid-item icon="balance-pay" text="充值" @click="onbalance" />
         <van-grid-item icon="refund-o" text="充值记录" @click="onbalancerecord" />
-        <van-grid-item icon="coupon-o" text="我的通道" @click="onaisle" />
-        <van-grid-item icon="revoke" text="退出" @click="onLogout" />
+        <van-grid-item icon="cash-o" text="提现" @click="onwithdraw" />
+        <van-grid-item icon="after-sale" text="提现记录" @click="onwithdrawrecord" />
+        <van-grid-item icon="notes-o" text="换汇记录" @click="onaisle" />
+        <van-grid-item icon="service-o" text="我的通道" @click="onaisle" />
+        <van-grid-item icon="revoke" text="？？" @click="onaisle" />
+        <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
-
+      <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">USDT代付(保一月)</van-divider>
+      <van-cell :value="exchangedata.exchange">
+        <template #title>
+          <span class="custom-title">1.00</span>
+          <van-icon name="exchange" size="20px"/>
+        </template>
+      </van-cell>
+      <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">USDT换汇(保永久)</van-divider>
+      <van-cell :value="exchangedata.exchange - 0.08">
+        <template #title>
+          <span class="custom-title">1.00</span>
+          <van-icon name="exchange" size="20px"/>
+        </template>
+      </van-cell>
+      <van-divider :style="{ color: '#aeb0b3', borderColor: '#1989fa', padding: '0 5px' }">人民币换汇USDT(暂未开通)</van-divider>
+      <van-cell value="1">
+        <template #title>
+          <span class="custom-title">{{exchangedata.exchange + 0.08}}</span>
+          <van-icon name="exchange" size="20px"/>
+        </template>
+      </van-cell>
     </div>
   </div>
 </template>
@@ -41,15 +65,21 @@ import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { getUserName} from '@/utils/auth'
 import merchantaccountApi from "@/api/merchant/merchantaccount";
+import payconfigApi from "@/api/account/payconfig";
 
 const userStore = useUserStore();
 const router = useRouter();
 let formdata = ref({});
+let exchangedata = ref({});
 
 onMounted(async () => {
   let result = await merchantaccountApi.get();
   console.info(result)
   formdata.value = result.body;
+
+  let res = await payconfigApi.get();
+  console.info(res)
+  exchangedata.value = res.body;
 });
 
 function onbalance() {
@@ -58,8 +88,15 @@ function onbalance() {
 function onbalancerecord() {
   router.push({ path: '/my/balancerecord' })
 }
+function onwithdraw() {
+  router.push({ path: '/my/withdraw' })
+}
+function onwithdrawrecord() {
+  router.push({ path: '/my/withdrawrecord' })
+}
+
 function onaisle() {
-  router.push({ path: '/my/aisle' })
+
 }
 
 function onLogout() {
@@ -71,6 +108,11 @@ function onLogout() {
 </script>
 
 <style lang="scss" scoped>
+
+.custom-title {
+  margin-right: 120px;
+}
+
 .profile-container {
 
   .profile-header {
@@ -136,7 +178,7 @@ function onLogout() {
         flex-direction: row;
         justify-content: space-around;
         height: 50px;
-        padding: 20px 10px 0px 10px;
+        padding: 40px 5px 0px 5px;
         color: #fff;
 
         &-box {
@@ -147,12 +189,12 @@ function onLogout() {
           width: calc(100vh / 3);
 
           &-num {
-            font-size: 21px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 400;
           }
 
           &-text {
-            font-size: 13px;
+            font-size: 12px;
           }
         }
       }

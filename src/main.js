@@ -3,7 +3,6 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-
 import svgIcon from '@/components/SvgIcon/index.vue'
 
 import 'amfe-flexible/index.js'
@@ -12,7 +11,7 @@ import './assets/styles/index.scss'
 import './router/permission'
 import directive from './directive'
 
-import { List,Cell,Search,PullRefresh,Grid,GridItem,Image} from 'vant';
+import { List,Cell,Search,PullRefresh,Grid,GridItem,Image,Divider,Icon ,Form, Field, CellGroup,Button,Uploader,Notify,Overlay } from 'vant';
 
 const app = createApp(App)
 
@@ -26,9 +25,16 @@ app.use(PullRefresh);
 app.use(Grid);
 app.use(GridItem);
 app.use(Image);
+app.use(Divider);
+app.use(Icon);
+app.use(Form);
+app.use(Field);
+app.use(CellGroup);
+app.use(Button);
+app.use(Uploader);
+app.use(Notify);
+app.use(Overlay);
 
 directive(app);
-
 app.component('svg-icon', svgIcon)
-
 app.mount('#app')
