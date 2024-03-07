@@ -28,7 +28,7 @@
         <van-grid-item icon="refund-o" text="充值记录" @click="onbalancerecord" />
         <van-grid-item icon="cash-o" text="提现" @click="onwithdraw" />
         <van-grid-item icon="after-sale" text="提现记录" @click="onwithdrawrecord" />
-        <van-grid-item icon="notes-o" text="换汇记录" />
+        <van-grid-item icon="notes-o" text="换汇记录" @click="onexchangerecord" />
         <van-grid-item icon="service-o" text="我的通道" @click="onaisle" />
         <van-grid-item icon="comment-o" text="资金明细" @click="onapplyjournal" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
@@ -94,6 +94,11 @@ function onwithdraw() {
 function onwithdrawrecord() {
   router.push({ path: '/my/withdrawrecord' })
 }
+
+function onexchangerecord() {
+  router.push({ path: '/exchange/exchangerecord' })
+}
+
 
 function onaisle() {
   router.push({ path: '/my/aisle' })

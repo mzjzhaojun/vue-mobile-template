@@ -1,10 +1,13 @@
 import axios from 'axios';
-import { Dialog } from 'vant';
+import {Dialog } from 'vant';
 import {b64tohex, KJUR} from 'jsrsasign'
 import CryptoJS from 'crypto-js'
 import forge from 'node-forge'
-import { useUserStore } from "@/stores/user";
-import { getToken, removeToken ,getTenantId,getRsapublickey} from './auth';
+import {useUserStore } from "@/stores/user";
+import {getToken, removeToken ,getTenantId,getRsapublickey} from './auth';
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 // 配置新建一个 axios 实例
 const service = axios.create({
@@ -54,7 +57,7 @@ service.interceptors.response.use(
         const { code, msg } = res;
         if (code === 200) {
             return res;
-        }else if (code === 401) {
+        }else if (code === 401 || code === 303 || code === 500) {
             handleError();
         } else {
             Dialog.alert({ message: msg });
@@ -64,8 +67,13 @@ service.interceptors.response.use(
     (error) => {
         console.log('请求异常：', error);
         let msg = "服务器网络异常，请稍后再试!";
-        if (error.code === "ERR_NETWORK") {
-            Dialog.alert({ message: msg });
+        if (error.code === "ERR_NETWORK" || error.code === "ERR_BAD_REQUEST") {
+            Dialog.alert({
+                message: msg
+            });
+        } else {
+            handleError();
+            return Promise.reject(new Error(msg));
         }
     }
 );
@@ -73,10 +81,8 @@ service.interceptors.response.use(
 
 // 统一处理请求响应异常
 function handleError() {
-    if (getToken()) {
-        removeToken();
-        window.location.href = '/login';
-    }
+    removeToken();
+    router.push({ path: '/login' });
 }
 
 

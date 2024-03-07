@@ -111,7 +111,7 @@ import merchantApi from "@/api/account/merchant";
 import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
 import merchantaisleApi from "@/api/account/merchantaisle";
 import sys_bankApi from "@/api/system/sys_bank";
-import payoutApi from '@/api/account/payout.js';
+import payoutApi from '@/api/account/payout';
 import {useRouter} from "vue-router";
 
 const router = useRouter();

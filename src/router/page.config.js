@@ -49,7 +49,16 @@ export default [
         path: '/my/applyjournal',
         component: () => import('@/views/my/applyjournal.vue'),
         meta: {
-            title: '提现记录',
+            title: '资金记录',
+            isNavBar: true
+        }
+    },
+    {
+        name: 'exchangerecord',
+        path: '/exchange/exchangerecord',
+        component: () => import('@/views/exchange/exchangerecord.vue'),
+        meta: {
+            title: '资金记录',
             isNavBar: true
         }
     },

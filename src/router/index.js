@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import navbarConfig from './navbar.config'
 import pageConfig from './page.config'
@@ -7,7 +7,7 @@ import MainLayout from '@/layout/main.vue'
 import PageLayout from '@/layout/page.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: [{
     path: '',
     component: MainLayout,
@@ -20,7 +20,10 @@ const router = createRouter({
   }, {
     name: 'login',
     path: '/login',
-    component: () => import("@/views/Login.vue")
+    component: () => import("@/views/Login.vue"),
+    meta: {
+      isParentView: true,
+    },
   }]
 })
 

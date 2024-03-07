@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="'￥'+item.amount+'   汇率:'+item.merchantexchange" :value="item.statusname" :label="item.accnumber" is-link/>
+        <van-cell v-for="item in list" :key="item" :title="'USDT:'+item.amount+' ￥:'+item.amountreceived" :value="item.statusname" :label="item.create_time" is-link/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -54,7 +54,7 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10};
-  let params = {accname:queryvalue.value,userid:getUserId(),type:21}
+  let params = {accname:queryvalue.value,userid:getUserId(),type:22}
   let res = await merchantaccountorderApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {

@@ -8,8 +8,8 @@
             is-link
             readonly
             name="picker"
-            label="选择通道"
-            placeholder="点击选择通道"
+            label="换汇通道"
+            placeholder="点击换汇通道"
             @click="showPicker = true"
         />
         <van-popup v-model:show="showPicker" position="bottom">
@@ -22,10 +22,10 @@
         </van-popup>
         <van-field
             v-model="formdata.amount"
-            name="代付金额"
-            label="代付金额"
-            placeholder="代付金额"
-            :rules="[{ required: true, message: '请填写代付金额' }]"
+            name="换汇金额"
+            label="换汇金额"
+            placeholder="换汇金额"
+            :rules="[{ required: true, message: '请填写换汇金额' }]"
             required
         />
         <van-field
@@ -111,7 +111,7 @@ import merchantApi from "@/api/account/merchant";
 import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
 import merchantaisleApi from "@/api/account/merchantaisle";
 import sys_bankApi from "@/api/system/sys_bank";
-import payoutApi from '@/api/account/payout.js';
+import exchangeApi from '@/api/account/exchange';
 import {useRouter} from "vue-router";
 
 const router = useRouter();
@@ -172,7 +172,7 @@ async function onSubmit(){
     show.value = true;
     formdata.value.aisleid = aisleid;
     formdata.value.code = bankcode;
-    let res = await payoutApi.add(formdata.value);
+    let res = await exchangeApi.add(formdata.value);
     if(res.code == 200){
       Notify({type:'success',message: '提交成功' });
       setTimeout(() => {
