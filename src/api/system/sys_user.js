@@ -17,7 +17,7 @@ export default {
   // 登录
   login(data) {
     return request({
-      url: '/rest/v1/auth/loginvue',
+      url: '/app/v1/auth/loginapp',
       method: 'post',
       data,
       headers: {
@@ -28,7 +28,7 @@ export default {
   // 注销
   logout() {
     return request({
-      url: '/rest/v1/auth/logoutvue',
+      url: '/app/v1/auth/logoutapp',
       method: 'get',
     });
   },

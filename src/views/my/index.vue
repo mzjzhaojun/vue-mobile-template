@@ -111,9 +111,8 @@ function onapplyjournal() {
 
 
 function onLogout() {
-  userStore.LogOut().then(() => {
-    router.push({ path: "/login" });
-  });
+  userStore.LogOut();
+  router.push({ path: "/#/login" });
 }
 
 </script>

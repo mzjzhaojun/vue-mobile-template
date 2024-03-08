@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { setToken, removeToken ,setRsapublickey,setTenantId,setUserId,setUserName} from '@/utils/auth'
+import { setToken, removeToken ,removeUserId,removeTenantId,setRsapublickey,setTenantId,setUserId,setUserName} from '@/utils/auth'
 import { apilogin, apilogout, apiinitrsakey,apiGetUserInfo } from '@/api/login/login'
 
 export const useUserStore = defineStore({
@@ -21,9 +21,9 @@ export const useUserStore = defineStore({
     Login: function (userInfo) {
       const username = userInfo.username.trim()
       const password = userInfo.password.trim()
-
+      const code = userInfo.code.trim()
       return new Promise((resolve, reject) => {
-        apilogin(username, password).then(res => {
+        apilogin(username, password,code).then(res => {
           setToken(res.tokenValue);
           setTenantId(res.tenantId)
           this.token = res.token;
@@ -53,16 +53,11 @@ export const useUserStore = defineStore({
       })
     },
     LogOut: function() {
-      return new Promise((resolve, reject) => {
         apilogout().then(() => {
-          this.token = null;
-          this.userId = null;
-          removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
+          removeToken();
+          removeUserId();
+          removeTenantId();
         })
-      })
     },
   }
 })

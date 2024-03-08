@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.accname+' ￥'+item.amount" :value="item.statusname" :label="item.bankname+' '+item.create_time" is-link/>
+        <van-cell v-for="item in list" :key="item" :title="item.accname+' ￥'+item.amount" :value="item.statusname" :label="item.bankname+' '+item.create_time"/>
       </van-list>
     </van-pull-refresh>
   </div>

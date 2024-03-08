@@ -306,7 +306,7 @@
             <path d="M22 10L26 10" stroke="#333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M20 38H28" stroke="#333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <input v-model="form.username" type="text" name="phone" autocomplete="off" placeholder="请输入手机号" />
+          <input v-model="form.username" type="text" name="username" autocomplete="off" placeholder="请输入手机号" />
         </div>
         <div class="login-form-item">
           <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -318,6 +318,17 @@
             <path d="M24 30V36" stroke="#333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <input v-model="form.password" type="password" name="password" autocomplete="off" placeholder="请输入密码" />
+        </div>
+        <div class="login-form-item">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" fill="white" fill-opacity="0.01" />
+            <rect x="6" y="22" width="36" height="22" rx="2" fill="none" stroke="#333" stroke-width="4"
+                  stroke-linejoin="round" />
+            <path d="M14 22V14C14 8.47715 18.4772 4 24 4C29.5228 4 34 8.47715 34 14V22" stroke="#333" stroke-width="4"
+                  stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M24 30V36" stroke="#333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <input v-model="form.code" type="text" name="code" autocomplete="off" placeholder="请输入谷歌码" />
         </div>
       </div>
       <Button block type="primary" @click="onLogin">登录</Button>
@@ -337,6 +348,7 @@ const userStore = useUserStore();
 const form = reactive({
   username: "",
   password: "",
+  code: "",
 });
 
 onMounted(async () => {
@@ -344,12 +356,20 @@ onMounted(async () => {
 });
 
 function onLogin() {
-  userStore.Login(form).then((response) => {
-      router.push({path: '/'})
-  }).catch((err) => {
-    Dialog.alert({message: err});
-  })
-
+  if(form.username == "")
+  {
+    Dialog.alert({ message: "请输入用户名" });
+  }else if(form.password == "")
+  {
+    Dialog.alert({ message: "请输入密码" });
+  }else if(form.code == "")
+  {
+    Dialog.alert({ message: "请输入验证码" });
+  }else{
+    userStore.Login(form).then((response) => {
+        router.push({path: '/'})
+    })
+  }
 }
 </script>
 
