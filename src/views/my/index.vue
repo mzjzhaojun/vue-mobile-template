@@ -3,7 +3,7 @@
     <div class="profile-header">
       <div class="profile-header-inner">
         <div class="profile-info">
-          <van-image class="profile-info-avatar" round fit="cover" src="../other/avatar.png"></van-image>
+          <van-image class="profile-info-avatar" round fit="cover" src="/favicon.ico"></van-image>
           <div class="profile-info-main">
             <span class="profile-info-main-nickname">{{getUserName()}}</span>
           </div>
