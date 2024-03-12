@@ -172,14 +172,16 @@ async function onSubmit(){
     show.value = true;
     formdata.value.aisleid = aisleid;
     formdata.value.bankcode = bankcode;
-    let res = await exchangeApi.add(formdata.value);
-    if(res.code == 200){
-      Notify({type:'success',message: '提交成功' });
-      setTimeout(() => {
-        show.value = false;
-        router.push({ path: '/my' })
-      }, 1000);
-    }else{
+    try{
+      let res = await exchangeApi.add(formdata.value);
+      if(res.code == 200){
+        Notify({type:'success',message: '提交成功' });
+        setTimeout(() => {
+          show.value = false;
+          router.push({ path: '/my' })
+        }, 1000);
+      }
+    }catch(e){
       show.value = false;
     }
   }
