@@ -9,7 +9,7 @@
             readonly
             name="picker"
             label="换汇通道"
-            placeholder="点击换汇通道"
+            placeholder="点击选择换汇通道"
             @click="showPicker = true"
         />
         <van-popup v-model:show="showPicker" position="bottom">
@@ -130,7 +130,7 @@ let bankname = ref(null);
 let bankcode = ref(null);
 
 onMounted(async () => {
-  let params = {userid:getUserId()}
+  let params = {userid:getUserId(),type:71}
   let result = await merchantaisleApi.list(params);
   columns.value = result.body.records;
 
@@ -171,7 +171,7 @@ async function onSubmit(){
   }else{
     show.value = true;
     formdata.value.aisleid = aisleid;
-    formdata.value.code = bankcode;
+    formdata.value.bankcode = bankcode;
     let res = await exchangeApi.add(formdata.value);
     if(res.code == 200){
       Notify({type:'success',message: '提交成功' });

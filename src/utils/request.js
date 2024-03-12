@@ -59,8 +59,10 @@ service.interceptors.response.use(
             return res;
         }else if (code === 401 || code === 303 || code === 500) {
             handleError();
+        }else{
+            Dialog.alert({ message: msg });
+            return res;
         }
-        Dialog.alert({ message: msg });
     },
     (error) => {
         console.log('请求异常：', error);
