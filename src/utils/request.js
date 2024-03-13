@@ -58,28 +58,24 @@ service.interceptors.response.use(
         if (code === 200) {
             return res;
         }else if (code === 401 || code === 303 || code === 500) {
-            handleError();
+            handleError(msg);
         }else{
             Dialog.alert({ message: msg });
+            return Promise.reject(new Error(msg));
         }
     },
     (error) => {
         console.log('请求异常：', error);
         let msg = "服务器网络异常，请稍后再试!";
-        if (error.code === "ERR_NETWORK" || error.code === "ERR_BAD_REQUEST") {
-            Dialog.alert({
-                message: msg
-            });
-        } else {
-            handleError();
-            return Promise.reject(new Error(msg));
-        }
+        handleError(msg);
+        return Promise.reject(new Error(msg));
     }
 );
 
 
 // 统一处理请求响应异常
-function handleError() {
+function handleError(msg) {
+    Dialog.alert({ message: msg });
     removeUserId();
     removeToken();
     removeTenantId();
