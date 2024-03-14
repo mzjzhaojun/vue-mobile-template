@@ -58,7 +58,7 @@ export default [
         path: '/exchange/exchangerecord',
         component: () => import('@/views/exchange/exchangerecord.vue'),
         meta: {
-            title: '资金记录',
+            title: '换汇记录',
             isNavBar: true
         }
     },

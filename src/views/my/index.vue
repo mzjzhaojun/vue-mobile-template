@@ -41,7 +41,7 @@
         </template>
       </van-cell>
       <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">USDT换汇(保永久)</van-divider>
-      <van-cell :value="exchangedata.exchange - 0.08">
+      <van-cell :value="(exchangedata.exchange - 0.06).toFixed(2)">
         <template #title>
           <span class="custom-title">1.00</span>
           <van-icon name="exchange" size="20px"/>
@@ -50,7 +50,7 @@
       <van-divider :style="{ color: '#aeb0b3', borderColor: '#1989fa', padding: '0 5px' }">人民币换汇USDT(暂未开通)</van-divider>
       <van-cell value="1">
         <template #title>
-          <span class="custom-title">{{exchangedata.exchange + 0.08}}</span>
+          <span class="custom-title">{{(exchangedata.exchange + 0.1).toFixed(2)}}</span>
           <van-icon name="exchange" size="20px"/>
         </template>
       </van-cell>
