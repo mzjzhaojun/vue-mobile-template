@@ -1,8 +1,8 @@
 export default [
     {
-        name: 'balancerecord',
-        path: '/my/balancerecord',
-        component: () => import('@/views/my/balancerecord.vue'),
+        name: 'incomerecord',
+        path: '/my/incomerecord',
+        component: () => import('@/views/my/incomerecord.vue'),
         meta: {
             title: '充值记录',
             isNavBar: true

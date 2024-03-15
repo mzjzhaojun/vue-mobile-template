@@ -86,7 +86,7 @@ function onbalance() {
   router.push({ path: '/my/balance' })
 }
 function onbalancerecord() {
-  router.push({ path: '/my/balancerecord' })
+  router.push({ path: '/my/incomerecord' })
 }
 function onwithdraw() {
   router.push({ path: '/my/withdraw' })

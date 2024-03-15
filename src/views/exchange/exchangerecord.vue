@@ -53,7 +53,7 @@ function onSearch(){
 }
 
 async function getData(){
-  let page = {pageNum:pageParams.value,pageSize:10};
+  let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
   let params = {accname:queryvalue.value,userid:getUserId(),type:22}
   let res = await merchantaccountorderApi.page(params,page);
   console.info(res)
