@@ -76,8 +76,9 @@ onMounted(async () => {
 async function onSubmit(){
   let totalincome = parseInt(formdata.value.totalincome);
   let amount = parseInt(formdata.value.amount);
-  if(totalincome < amount){
-    Notify({ type:'danger',message: '输入金额要小于可用余额' });
+  let merchantexchange = parseInt(formdata.merchantexchange);
+  if(totalincome < amount || amount <= 0 || merchantexchange <= 0){
+    Notify({ type:'danger',message: '输入提现或者汇率数值错误' });
   }else{
     show.value = true;
     let res = await merchantaccountorderApi.withdraw(formdata.value);

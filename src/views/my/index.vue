@@ -33,27 +33,30 @@
         <van-grid-item icon="comment-o" text="资金明细" @click="onapplyjournal" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
-      <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">USDT代付(保一月)</van-divider>
-      <van-cell :value="exchangedata.exchange">
+
+      <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">欧易一档买入价</van-divider>
+      <van-cell>￥ {{exchangedata.exchange}}
         <template #title>
-          <span class="custom-title">1.00</span>
+          <span class="custom-title">$ 1</span>
           <van-icon name="exchange" size="20px"/>
         </template>
       </van-cell>
+      <!--
       <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">USDT换汇(保永久)</van-divider>
-      <van-cell :value="(exchangedata.exchange - 0.06).toFixed(2)">
+      <van-cell :value="(exchangedata.exchange - 0.1).toFixed(2)">
         <template #title>
           <span class="custom-title">1.00</span>
           <van-icon name="exchange" size="20px"/>
         </template>
       </van-cell>
-      <van-divider :style="{ color: '#aeb0b3', borderColor: '#1989fa', padding: '0 5px' }">人民币换汇USDT(暂未开通)</van-divider>
-      <van-cell value="1">
+      <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">美金换汇(保永久)</van-divider>
+      <van-cell :value="(exchangedata.exchange - 0.15).toFixed(2)">
         <template #title>
-          <span class="custom-title">{{(exchangedata.exchange + 0.1).toFixed(2)}}</span>
+          <span class="custom-title">1.00</span>
           <van-icon name="exchange" size="20px"/>
         </template>
       </van-cell>
+      -->
     </div>
   </div>
 </template>
@@ -120,7 +123,7 @@ function onLogout() {
 <style lang="scss" scoped>
 
 .custom-title {
-  margin-right: 120px;
+  margin-right: 129px;
 }
 
 .profile-container {

@@ -123,9 +123,11 @@ function afterRead (file){
 };
 
 async function onSubmit(){
-
+  let amount = parseInt(formdata.value.amount);
   if(formdata.imgurl == null){
     Notify({ type:'danger',message: '请上传凭证后提交' });
+  }else if(amount <= 0){
+    Notify({ type:'danger',message: '充值金额输入错误' });
   }else{
     show.value = true;
     postdata = {imgurl:formdata.imgurl,remark:formdata.value.remark,usdt:formdata.value.usdt,merchantexchange:formdata.value.merchantexchange,exchange:formdata.value.exchange,amount:formdata.value.amount};

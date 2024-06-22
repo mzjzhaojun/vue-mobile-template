@@ -166,7 +166,7 @@ function onAreaConfirm (selectedValues,selectedOptions){
 async function onSubmit(){
   let totalincome = parseInt(formdata.value.totalincome);
   let amount = parseInt(formdata.value.amount);
-  if(totalincome < amount){
+  if(totalincome < amount || amount <= 0){
     Notify({ type:'danger',message: '输入金额要小于可用余额' });
   }else{
     show.value = true;
