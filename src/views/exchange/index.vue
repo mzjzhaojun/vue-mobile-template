@@ -45,49 +45,11 @@
             :rules="[{ required: true, message: '姓名' }]"
             required
         />
-        <van-field
-            v-model="formdata.accnumer"
-            name="账号"
-            label="账号"
-            placeholder="账号"
-            :rules="[{ required: true, message: '账号' }]"
-            required
-        />
-        <van-field
-            v-model="formdata.bankname"
-            required
-            is-link
-            readonly
-            name="picker"
-            label="银行名称"
-            placeholder="点击选择银行名称"
-            @click="showBankPicker = true"
-        />
-        <van-popup v-model:show="showBankPicker" position="bottom">
-          <van-picker
-              :columns="banks"
-              :columns-field-names="{text:'name',value:'code'}"
-              @confirm="onBankConfirm"
-              @cancel="showBankPicker = false"
-          />
-        </van-popup>
-        <van-field
-            v-model="formdata.bankaddress"
-            is-link
-            required
-            readonly
-            name="bankaddress"
-            label="银行地址"
-            placeholder="银行地址"
-            @click="showArea = true"
-        />
-        <van-popup v-model:show="showArea" position="bottom">
-          <van-area
-              :area-list="areaList"
-              @confirm="onAreaConfirm"
-              @cancel="showArea = false"
-          />
-        </van-popup>
+        <van-field name="uploader" label="二维码"  required>
+          <template #input>
+            <van-uploader :max-count="1" :after-read="afterRead" v-model="formdata.qrcode"/>
+          </template>
+        </van-field>
       </van-cell-group>
       <div style="margin: 16px;">
         <van-button block type="primary" native-type="submit">
@@ -106,18 +68,20 @@
 import {onMounted, ref} from 'vue';
 import {Notify} from 'vant';
 import { areaList } from '@vant/area-data';
-import {getUserId} from "@/utils/auth";
+import {getTenantId, getToken, getUserId} from "@/utils/auth";
 import merchantApi from "@/api/account/merchant";
 import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
 import merchantaisleApi from "@/api/account/merchantaisle";
 import sys_bankApi from "@/api/system/sys_bank";
-import exchangeApi from '@/api/account/exchange';
+import exchangeApi from '@/api/account/exchange.js';
 import {useRouter} from "vue-router";
+import axios from "axios";
 
 const router = useRouter();
 
 
 let formdata = ref({})
+let postdata = ref({});
 let show = ref(false);
 let showBankPicker = ref(false);
 let showPicker = ref(false);
@@ -128,6 +92,8 @@ let aisleid = ref(null)
 let aredaddress = ref(null)
 let bankname = ref(null);
 let bankcode = ref(null);
+
+let uploadUrl = import.meta.env.VITE_APP_BASE_FILE_API;
 
 onMounted(async () => {
   let params = {userid:getUserId(),type:71}
@@ -173,7 +139,8 @@ async function onSubmit(){
     formdata.value.aisleid = aisleid;
     formdata.value.bankcode = bankcode;
     try{
-      let res = await exchangeApi.add(formdata.value);
+      postdata = {qrcode:formdata.qrcode,remark:formdata.value.remark,aisleid:formdata.value.aisleid,amount:formdata.value.amount,accname:formdata.value.accname,bankname:'微信支付宝'};
+      let res = await exchangeApi.add(postdata);
       if(res.code == 200){
         Notify({type:'success',message: '提交成功' });
         setTimeout(() => {
@@ -188,7 +155,22 @@ async function onSubmit(){
 }
 
 
+function afterRead (file){
+  let formData = new FormData();
+  let headers = {Satoken:getToken(),Tenant_Id:getTenantId()};
+  formData.append("file", file.file);
+  axios.post(uploadUrl, formData, {
+    "content-type": "multipart/form-data",
+    headers: headers,
+  })
+      .then((res) => {
+        formdata.qrcode=res.data.body.url;
+      })
+      .catch((err) => {
+        console.info(err)
+      });
 
+};
 
 </script>
 

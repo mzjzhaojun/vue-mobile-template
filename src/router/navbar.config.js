@@ -13,8 +13,8 @@ export default [
         path: '/homepay',
         component: () => import('@/views/payout/index.vue'),
         meta: {
-            title: '代付',
-            icon: 'gold-coin-o',
+            title: '银行卡',
+            icon: 'balance-o',
         }
     },
     {
@@ -22,7 +22,7 @@ export default [
         path: '/exchange',
         component: () => import('@/views/exchange/index.vue'),
         meta: {
-            title: '换汇',
+            title: '微信支付宝',
             icon: 'exchange',
         }
     },

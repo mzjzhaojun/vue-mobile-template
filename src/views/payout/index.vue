@@ -22,10 +22,10 @@
         </van-popup>
         <van-field
             v-model="formdata.amount"
-            name="代付金额"
-            label="代付金额"
-            placeholder="代付金额"
-            :rules="[{ required: true, message: '请填写代付金额' }]"
+            name="提款金额"
+            label="提款金额"
+            placeholder="提款金额"
+            :rules="[{ required: true, message: '请填写提款金额' }]"
             required
         />
         <van-field

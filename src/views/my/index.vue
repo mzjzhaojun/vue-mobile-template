@@ -15,7 +15,7 @@
           </div>
           <div class="profile-number-box">
             <span class="profile-number-box-num">￥{{formdata.withdrawamount}}</span>
-            <span class="profile-number-box-text">代付金额</span>
+            <span class="profile-number-box-text">提款金额</span>
           </div>
           <div class="profile-number-box">
             <span class="profile-number-box-num">￥{{formdata.balance}}</span>
