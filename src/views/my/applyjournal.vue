@@ -54,7 +54,7 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {accname:queryvalue.value,userid:getUserId(),type:20}
+  let params = {accname:queryvalue.value,userid:getUserId()}
   let res = await merchantaccountapplyjournaApo.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {

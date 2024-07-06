@@ -57,7 +57,7 @@ service.interceptors.response.use(
         const { code, msg } = res;
         if (code === 200) {
             return res;
-        }else if (code === 401 || code === 303 || code === 500) {
+        }else if (code === 401) {
             handleError(msg);
         }else{
             Dialog.alert({ message: msg });
@@ -67,7 +67,6 @@ service.interceptors.response.use(
     (error) => {
         console.log('请求异常：', error);
         let msg = "服务器网络异常，请稍后再试!";
-        handleError(msg);
         return Promise.reject(new Error(msg));
     }
 );
@@ -75,7 +74,6 @@ service.interceptors.response.use(
 
 // 统一处理请求响应异常
 function handleError(msg) {
-    Dialog.alert({ message: msg });
     removeUserId();
     removeToken();
     removeTenantId();
