@@ -70,10 +70,9 @@ import {Notify} from 'vant';
 import { areaList } from '@vant/area-data';
 import {getTenantId, getToken, getUserId} from "@/utils/auth";
 import merchantApi from "@/api/account/merchant";
-import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
 import merchantaisleApi from "@/api/account/merchantaisle";
 import sys_bankApi from "@/api/system/sys_bank";
-import exchangeApi from '@/api/account/exchange.js';
+import exchangeApi from '@/api/exchange/exchange.js';
 import {useRouter} from "vue-router";
 import axios from "axios";
 
