@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="'￥:'+item.amount" :value="item.statusname" :label="item.accname+' '+item.create_time"/>
+        <van-cell v-for="item in list" :key="item" :title="item.accname+' ￥'+item.amount" :value="item.statusname" :label="'USDT '+item.amountreceived+' / '+item.create_time"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -21,7 +21,7 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
+import merchantaccountorderApi from "@/api/exchange/exchangemerchantaccountorder";
 
 import {getUserId} from '@/utils/auth';
 

@@ -1,11 +1,11 @@
 import request from '@/utils/request';
 
-const BASE_API = '/rest/v1/exchangemerchantaccountrecord';
+const BASE_API = '/rest/v1/incomemerchantaccountorder';
 
 export default {
   page(data, headers) {
     return request({
-      url: BASE_API + '/list',
+      url: BASE_API + '/page',
       method: 'post',
       data,
       headers,
@@ -38,11 +38,32 @@ export default {
       method: 'delete',
     });
   },
-  paysuccess(data) {
+  get(id) {
     return request({
-      url: BASE_API+"/paysuccess",
-      method: 'post',
-      data: data,
+      url: BASE_API+"/"+id,
+      method: 'get',
     });
   },
+  remotebalance(id){
+    return request({
+      url: BASE_API+"/remotebalance/"+id,
+      method: 'get',
+    });
+  },
+  download(data){
+    return request({
+      url: BASE_API + '/download',
+      method: 'post',
+      data,
+      responseType: 'blob'
+    });
+  },
+  reconciliation(data){
+    return request({
+      url: BASE_API + '/reconciliation',
+      method: 'post',
+      data,
+      responseType: 'blob'
+    });
+  }
 };

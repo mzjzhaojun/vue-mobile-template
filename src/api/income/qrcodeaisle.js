@@ -1,11 +1,11 @@
 import request from '@/utils/request';
 
-const BASE_API = '/rest/v1/exchangemerchantaccountrecord';
+const BASE_API = '/rest/v1/qrcodeaisle';
 
 export default {
   page(data, headers) {
     return request({
-      url: BASE_API + '/list',
+      url: BASE_API + '/page',
       method: 'post',
       data,
       headers,
@@ -36,13 +36,6 @@ export default {
     return request({
       url: BASE_API+"/"+id,
       method: 'delete',
-    });
-  },
-  paysuccess(data) {
-    return request({
-      url: BASE_API+"/paysuccess",
-      method: 'post',
-      data: data,
     });
   },
 };

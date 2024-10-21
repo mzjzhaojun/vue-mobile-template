@@ -1,6 +1,5 @@
 import { useUserStore } from "@/stores/user";
 import sysUserApi from '@/api/system/sys_user.js';
-import merchantaccountApi from '@/api/merchant/merchantaccount.js';
 
 // 模拟登陆，实际需要调用request进行登录请求
 export async function apilogin(username, password,code) {
@@ -19,7 +18,7 @@ export async function apiinitrsakey() {
 
 
 export async function apiGetUserInfo() {
-    let result = await merchantaccountApi.get();
+    let result = await sysUserApi.getuser();
     return result.body;
 }
 

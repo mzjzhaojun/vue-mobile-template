@@ -24,6 +24,7 @@ export const useUserStore = defineStore({
       const code = userInfo.code.trim()
       return new Promise((resolve, reject) => {
         apilogin(username, password,code).then(res => {
+          console.info(res)
           setToken(res.tokenValue);
           setTenantId(res.tenantId)
           this.token = res.token;
@@ -32,7 +33,7 @@ export const useUserStore = defineStore({
           setUserName(username);
           apiGetUserInfo().then(res => {
             console.info(res)
-            this.userId = res.userid;
+            this.userId = res;
             setUserId(this.userId);
             resolve()
           })

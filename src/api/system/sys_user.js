@@ -33,10 +33,10 @@ export default {
     });
   },
   // 获取用户权限
-  getUserPerm() {
+  getuser() {
     return request({
-      url: BASE_API +'/getUserPerm',
-      method: 'post',
+      url: '/app/v1/auth/getuser',
+      method: 'get',
       // params: { systemSource: 0 }
     });
   },

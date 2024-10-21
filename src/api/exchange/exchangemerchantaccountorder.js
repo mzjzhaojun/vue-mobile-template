@@ -5,7 +5,7 @@ const BASE_API = '/rest/v1/exchangemerchantaccountorder';
 export default {
   page(data, headers) {
     return request({
-      url: BASE_API + '/page',
+      url: BASE_API + '/list',
       method: 'post',
       data,
       headers,

@@ -1,11 +1,11 @@
 import request from '@/utils/request';
 
-const BASE_API = '/rest/v1/exchangemerchantaccountrecord';
+const BASE_API = '/rest/v1/qrcode';
 
 export default {
   page(data, headers) {
     return request({
-      url: BASE_API + '/list',
+      url: BASE_API + '/page',
       method: 'post',
       data,
       headers,
@@ -14,6 +14,13 @@ export default {
   list(data) {
     return request({
       url: BASE_API + '/list',
+      method: 'post',
+      data,
+    });
+  },
+  paytest(data) {
+    return request({
+      url: BASE_API + '/paytest',
       method: 'post',
       data,
     });
@@ -38,11 +45,16 @@ export default {
       method: 'delete',
     });
   },
-  paysuccess(data) {
+  get(id) {
     return request({
-      url: BASE_API+"/paysuccess",
-      method: 'post',
-      data: data,
+      url: BASE_API+"/"+id,
+      method: 'get',
     });
   },
+  remotebalance(id){
+    return request({
+      url: BASE_API+"/remotebalance/"+id,
+      method: 'get',
+    });
+  }
 };

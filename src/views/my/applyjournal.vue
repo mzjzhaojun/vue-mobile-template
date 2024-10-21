@@ -21,7 +21,7 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import merchantaccountapplyjournaApo from "@/api/merchant/merchantaccountapplyjourna";
+import exchangemerchantaccountrecordApi from "@/api/exchange/exchangemerchantaccountrecord";
 
 import {getUserId} from '@/utils/auth';
 
@@ -55,7 +55,7 @@ function onSearch(){
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
   let params = {accname:queryvalue.value,userid:getUserId()}
-  let res = await merchantaccountapplyjournaApo.page(params,page);
+  let res = await exchangemerchantaccountrecordApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;
