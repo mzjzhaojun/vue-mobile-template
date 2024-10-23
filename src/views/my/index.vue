@@ -27,10 +27,11 @@
 <!--        <van-grid-item icon="balance-pay" text="充值" @click="onbalance" />
         <van-grid-item icon="refund-o" text="充值记录" @click="onbalancerecord" />
         <van-grid-item icon="cash-o" text="提现" @click="onwithdraw" />
-        <van-grid-item icon="after-sale" text="提现记录" @click="onwithdrawrecord" />
-        <van-grid-item icon="notes-o" text="换汇记录" @click="onexchangerecord" />
-        <van-grid-item icon="service-o" text="我的通道" @click="onaisle" />-->
-        <van-grid-item icon="comment-o" text="资金明细" @click="onapplyjournal" />
+        <van-grid-item icon="after-sale" text="提现记录" @click="onwithdrawrecord" />-->
+        <van-grid-item icon="notes-o" text="渠道管理" @click="onechannel" />
+        <van-grid-item icon="service-o" text="商户管理" @click="onmerchant" />
+        <van-grid-item icon="comment-o" text="系统收入" @click="onapplyjournal" />
+        <van-grid-item icon="refund-o" text="每日统计" @click="onbalancerecord" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
       <!--
@@ -77,7 +78,6 @@ let formdata = ref({});
 
 onMounted(async () => {
   let result = await systemaccountApi.get();
-  console.info(result)
   formdata.value = result.body;
 });
 
@@ -85,7 +85,7 @@ function onbalance() {
   router.push({ path: '/my/balance' })
 }
 function onbalancerecord() {
-  router.push({ path: '/my/incomerecord' })
+  router.push({ path: '/my/systemstatisticalreports' })
 }
 function onwithdraw() {
   router.push({ path: '/my/withdraw' })
@@ -94,13 +94,12 @@ function onwithdrawrecord() {
   router.push({ path: '/my/withdrawrecord' })
 }
 
-function onexchangerecord() {
-  router.push({ path: '/exchange/exchangerecord' })
+function onechannel() {
+  router.push({ path: '/my/channel' })
 }
 
-
-function onaisle() {
-  router.push({ path: '/my/aisle' })
+function onmerchant() {
+  router.push({ path: '/my/merchant' })
 }
 
 function onapplyjournal() {

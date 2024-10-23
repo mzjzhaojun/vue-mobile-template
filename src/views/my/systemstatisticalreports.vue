@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.name" :value="item.code"/>
+        <van-cell v-for="item in list" :key="item" :title="'支付:'+item.successorder+' 总单:'+item.todayorder+' 成率: '+item.payoutrate" :value="item.todayincome" :label="item.dateval"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -21,9 +21,7 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import merchantaisleApi from "@/api/account/merchantaisle";
-
-import {getUserId} from '@/utils/auth';
+import systemstatisticalreportsApi from "@/api/account/systemstatisticalreports";
 
 const list = ref([]);
 const loading = ref(false);
@@ -35,13 +33,13 @@ const queryvalue = ref('');
 
 function onLoad(){
 
-  setTimeout(() => {
-    if (refreshing.value) {
-      list.value = [];
-      refreshing.value = false;
-    }
+   setTimeout(() => {
+     if (refreshing.value) {
+       list.value = [];
+       refreshing.value = false;
+     }
     getData();
-  }, 1000);
+   }, 1000);
 
 
 };
@@ -53,9 +51,9 @@ function onSearch(){
 }
 
 async function getData(){
-  let page = {pageNum:pageParams.value,pageSize:10};
-  let params = {userid:getUserId()}
-  let res = await merchantaisleApi.page(params,page);
+  let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
+  let params = {accname:queryvalue.value,type:20}
+  let res = await systemstatisticalreportsApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;

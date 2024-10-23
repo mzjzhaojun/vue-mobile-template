@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="'余额:'+item.balance+' + '+item.amount+''" :value="item.name" :label="item.create_time"/>
+        <van-cell v-for="item in list" :key="item" :title="'余额:'+item.balance+' 今收:'+item.todaycount" :value="item.name+' '+item.collection+'%'" :label="'总收入:'+item.count"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -21,9 +21,7 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import systemaccountrecordApi from "@/api/account/systemaccountrecord";
-
-import {getUserId} from '@/utils/auth';
+import merchantApi from "@/api/account/merchant";
 
 const list = ref([]);
 const loading = ref(false);
@@ -35,13 +33,13 @@ const queryvalue = ref('');
 
 function onLoad(){
 
-   setTimeout(() => {
-     if (refreshing.value) {
-       list.value = [];
-       refreshing.value = false;
-     }
+  setTimeout(() => {
+    if (refreshing.value) {
+      list.value = [];
+      refreshing.value = false;
+    }
     getData();
-   }, 1000);
+  }, 1000);
 
 
 };
@@ -53,9 +51,9 @@ function onSearch(){
 }
 
 async function getData(){
-  let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {accname:queryvalue.value,userid:getUserId()}
-  let res = await systemaccountrecordApi.page(params,page);
+  let page = {pageNum:pageParams.value,pageSize:10};
+  let params = {}
+  let res = await merchantApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;

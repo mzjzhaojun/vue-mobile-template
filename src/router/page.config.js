@@ -18,11 +18,11 @@ export default [
         }
     },
     {
-        name: 'aisle',
-        path: '/my/aisle',
-        component: () => import('@/views/my/aisle.vue'),
+        name: 'merchant',
+        path: '/my/merchant',
+        component: () => import('@/views/my/merchant.vue'),
         meta: {
-            title: '我的通道',
+            title: '商户列表',
             isNavBar: true
         }
     },
@@ -49,16 +49,24 @@ export default [
         path: '/my/applyjournal',
         component: () => import('@/views/my/applyjournal.vue'),
         meta: {
-            title: '资金记录',
+            title: '系统收入',
             isNavBar: true
         }
     },
     {
-        name: 'exchangerecord',
-        path: '/exchange/exchangerecord',
-        component: () => import('@/views/exchange/exchangerecord.vue'),
+        name: 'channel',
+        path: '/my/channel',
+        component: () => import('@/views/my/channel.vue'),
         meta: {
-            title: '换汇记录',
+            title: '渠道管理',
+            isNavBar: true
+        }
+    },{
+        name: 'systemstatisticalreports',
+        path: '/my/systemstatisticalreports',
+        component: () => import('@/views/my/systemstatisticalreports.vue'),
+        meta: {
+            title: '每日统计',
             isNavBar: true
         }
     },

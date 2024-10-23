@@ -24,7 +24,6 @@ export const useUserStore = defineStore({
       const code = userInfo.code.trim()
       return new Promise((resolve, reject) => {
         apilogin(username, password,code).then(res => {
-          console.info(res)
           setToken(res.tokenValue);
           setTenantId(res.tenantId)
           this.token = res.token;

@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.merchantname+'   ￥'+item.amount" :value="item.statusname" :label="item.qrcodename+' / '+item.create_time"/>
+        <van-cell v-for="item in list" :key="item" :title="item.merchantname+'   ￥'+item.amount" :value="item.statusname+'/'+item.notifystatusname" :label="item.qrcodename+' / '+item.create_time"/>
       </van-list>
     </van-pull-refresh>
   </div>
