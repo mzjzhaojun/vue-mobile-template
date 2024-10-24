@@ -2,7 +2,6 @@
   <div>
     <van-search
         v-model="queryvalue"
-        input-align="center"
         placeholder="请输入搜索名称"
         @search="onSearch">
     </van-search>
