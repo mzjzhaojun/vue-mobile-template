@@ -26,8 +26,8 @@
       <van-grid clickable :column-num="4">
 <!--        <van-grid-item icon="balance-pay" text="充值" @click="onbalance" />
         <van-grid-item icon="refund-o" text="充值记录" @click="onbalancerecord" />
-        <van-grid-item icon="cash-o" text="提现" @click="onwithdraw" />
-        <van-grid-item icon="after-sale" text="提现记录" @click="onwithdrawrecord" />-->
+        <van-grid-item icon="cash-o" text="提现" @click="onwithdraw" />-->
+        <van-grid-item icon="after-sale" text="收入明细" @click="onincome" />
         <van-grid-item icon="notes-o" text="渠道管理" @click="onechannel" />
         <van-grid-item icon="service-o" text="商户管理" @click="onmerchant" />
         <van-grid-item icon="comment-o" text="系统收入" @click="onapplyjournal" />
@@ -90,8 +90,8 @@ function onbalancerecord() {
 function onwithdraw() {
   router.push({ path: '/my/withdraw' })
 }
-function onwithdrawrecord() {
-  router.push({ path: '/my/withdrawrecord' })
+function onincome() {
+  router.push({ path: '/my/income' })
 }
 
 function onechannel() {
@@ -105,8 +105,6 @@ function onmerchant() {
 function onapplyjournal() {
   router.push({ path: '/my/applyjournal' })
 }
-
-
 
 function onLogout() {
   userStore.LogOut();

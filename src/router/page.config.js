@@ -1,14 +1,5 @@
 export default [
     {
-        name: 'incomerecord',
-        path: '/my/incomerecord',
-        component: () => import('@/views/my/incomerecord.vue'),
-        meta: {
-            title: '充值记录',
-            isNavBar: true
-        }
-    },
-    {
         name: 'balance',
         path: '/my/balance',
         component: () => import('@/views/my/balance.vue'),
@@ -36,11 +27,11 @@ export default [
         }
     },
     {
-        name: 'withdrawrecord',
-        path: '/my/withdrawrecord',
-        component: () => import('@/views/my/withdrawrecord.vue'),
+        name: 'income',
+        path: '/my/income',
+        component: () => import('@/views/my/income.vue'),
         meta: {
-            title: '提现记录',
+            title: '收入明细',
             isNavBar: true
         }
     },

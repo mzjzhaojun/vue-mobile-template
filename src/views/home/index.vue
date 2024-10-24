@@ -22,7 +22,6 @@
 
 import {ref} from 'vue';
 import incomeapi from '@/api/income/income.js';
-import {getUserId} from '@/utils/auth';
 
 const list = ref([]);
 const loading = ref(false);
@@ -53,7 +52,7 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {accname:queryvalue.value,userid:getUserId()}
+  let params = {accname:queryvalue.value}
   let res = await incomeapi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {

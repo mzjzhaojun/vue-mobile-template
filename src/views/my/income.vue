@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="'￥'+item.amount+'   汇率:'+item.merchantexchange" :value="item.statusname" :label="'   $:'+item.usdtval"/>
+        <van-cell v-for="item in list" :key="item" :title="item.merchantorderid+' '+item.qrcodeordernum+'   ￥'+item.amount" :value="item.statusname+'/'+item.notifystatusname" :label="item.qrcodename+' / '+item.create_time"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -21,9 +21,7 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
-
-import {getUserId} from '@/utils/auth';
+import incomeapi from '@/api/income/income.js';
 
 const list = ref([]);
 const loading = ref(false);
@@ -35,13 +33,13 @@ const queryvalue = ref('');
 
 function onLoad(){
 
-   setTimeout(() => {
-     if (refreshing.value) {
-       list.value = [];
-       refreshing.value = false;
-     }
+  setTimeout(() => {
+    if (refreshing.value) {
+      list.value = [];
+      refreshing.value = false;
+    }
     getData();
-   }, 1000);
+  }, 1000);
 
 
 };
@@ -54,8 +52,8 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {accname:queryvalue.value,userid:getUserId(),type:21}
-  let res = await merchantaccountorderApi.page(params,page);
+  let params = {merchantorderid:queryvalue.value}
+  let res = await incomeapi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;
@@ -77,9 +75,11 @@ async function getData(){
 
 
 function onRefresh(){
-
+  // 清空列表数据
   finished.value = false;
 
+  // 重新加载数据
+  // 将 loading 设置为 true，表示处于加载状态
   loading.value = true;
 
   pageParams.value = 1;
