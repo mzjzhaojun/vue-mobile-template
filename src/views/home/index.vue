@@ -52,7 +52,7 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {accname:queryvalue.value}
+  let params = {merchantname:queryvalue.value}
   let res = await incomeapi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
