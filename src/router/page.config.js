@@ -31,7 +31,7 @@ export default [
         path: '/my/income',
         component: () => import('@/views/my/income.vue'),
         meta: {
-            title: '收入明细',
+            title: '代收明细',
             isNavBar: true
         }
     },
@@ -49,7 +49,7 @@ export default [
         path: '/my/channel',
         component: () => import('@/views/my/channel.vue'),
         meta: {
-            title: '渠道管理',
+            title: '渠道列表',
             isNavBar: true
         }
     },{
@@ -57,7 +57,7 @@ export default [
         path: '/my/systemstatisticalreports',
         component: () => import('@/views/my/systemstatisticalreports.vue'),
         meta: {
-            title: '每日统计',
+            title: '代收统计',
             isNavBar: true
         }
     },

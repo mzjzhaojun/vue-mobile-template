@@ -27,11 +27,11 @@
 <!--        <van-grid-item icon="balance-pay" text="充值" @click="onbalance" />
         <van-grid-item icon="refund-o" text="充值记录" @click="onbalancerecord" />
         <van-grid-item icon="cash-o" text="提现" @click="onwithdraw" />-->
-        <van-grid-item icon="after-sale" text="收入明细" @click="onincome" />
-        <van-grid-item icon="notes-o" text="渠道管理" @click="onechannel" />
-        <van-grid-item icon="service-o" text="商户管理" @click="onmerchant" />
+        <van-grid-item icon="after-sale" text="代收明细" @click="onincome" />
+        <van-grid-item icon="notes-o" text="渠道列表" @click="onechannel" />
+        <van-grid-item icon="service-o" text="商户列表" @click="onmerchant" />
         <van-grid-item icon="comment-o" text="系统收入" @click="onapplyjournal" />
-        <van-grid-item icon="refund-o" text="每日统计" @click="onbalancerecord" />
+        <van-grid-item icon="refund-o" text="代收统计" @click="onbalancerecord" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
       <!--
