@@ -31,7 +31,7 @@
         <van-grid-item icon="notes-o" text="渠道列表" @click="onechannel" />
         <van-grid-item icon="service-o" text="商户列表" @click="onmerchant" />
         <van-grid-item icon="comment-o" text="系统收入" @click="onapplyjournal" />
-        <van-grid-item icon="refund-o" text="代收统计" @click="onbalancerecord" />
+        <van-grid-item icon="refund-o" text="代收统计" @click="onsystemstatisticalreports" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
       <!--
@@ -84,7 +84,7 @@ onMounted(async () => {
 function onbalance() {
   router.push({ path: '/my/balance' })
 }
-function onbalancerecord() {
+function onsystemstatisticalreports() {
   router.push({ path: '/my/systemstatisticalreports' })
 }
 function onwithdraw() {

@@ -5,7 +5,7 @@ const BASE_API = '/rest/v1/merchantaisle';
 export default {
   page(data, headers) {
     return request({
-      url: BASE_API + '/list',
+      url: BASE_API + '/page',
       method: 'post',
       data,
       headers,

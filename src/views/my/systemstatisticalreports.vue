@@ -11,7 +11,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="'支付:'+item.successorder+' 总单:'+item.todayorder+' 成率: '+item.payoutrate" :value="item.todayincome" :label="item.dateval"/>
+        <van-cell v-for="item in list" :key="item" :title="'支付:'+item.successorder+' 总单:'+item.todayorder" :value="item.todayincome+' 成率:'+item.payoutrate" :label="item.dateval"/>
       </van-list>
     </van-pull-refresh>
   </div>
