@@ -22,7 +22,7 @@ export default [
         path: '/exchange',
         component: () => import('@/views/exchange/index.vue'),
         meta: {
-            title: '微信支付宝',
+            title: '支付宝',
             icon: 'exchange',
         }
     },

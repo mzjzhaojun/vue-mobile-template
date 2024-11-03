@@ -4,7 +4,7 @@ import {b64tohex, KJUR} from 'jsrsasign'
 import CryptoJS from 'crypto-js'
 import forge from 'node-forge'
 import {useUserStore } from "@/stores/user";
-import {getToken, removeToken ,getTenantId,getRsapublickey,removeTenantId,removeRsapublickey,removeUserId} from './auth';
+import {getToken, removeToken ,getTenantId,getRsapublickey,removeTenantId,removeRsapublickey,removeUserId,removeUserType} from './auth';
 import {useRouter} from "vue-router";
 
 const router = useRouter();
@@ -75,6 +75,7 @@ service.interceptors.response.use(
 // 统一处理请求响应异常
 function handleError(msg) {
     removeUserId();
+    removeUserType();
     removeToken();
     removeTenantId();
     removeRsapublickey();

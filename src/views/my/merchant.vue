@@ -11,7 +11,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="'余额:'+item.balance+' 今收:'+item.todaycount" :value="item.name+' '+item.collection+'%'" :label="'总收入:'+item.count"/>
+        <van-cell v-for="item in list" :key="item" :title="'+'+item.todaycount+' 余 '+item.balance" :value="item.name+' '+item.collection+'%'" :label="'总收入:'+item.count"/>
       </van-list>
     </van-pull-refresh>
   </div>

@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 
-const BASE_API = '/rest/v1/merchantaccountrecord';
+const BASE_API = '/rest/v1/tronmember';
 
 export default {
   page(data, headers) {
@@ -38,10 +38,10 @@ export default {
       method: 'delete',
     });
   },
-  get() {
+  get(id) {
     return request({
-      url: BASE_API+"/data",
+      url: BASE_API+"/"+id,
       method: 'get',
     });
-  }
+  },
 };

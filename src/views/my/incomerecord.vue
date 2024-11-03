@@ -2,6 +2,7 @@
   <div>
     <van-search
         v-model="queryvalue"
+        input-align="center"
         placeholder="请输入搜索名称"
         @search="onSearch">
     </van-search>
@@ -11,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="'+'+item.todayincome+' 余额:'+item.incomecount" :value="item.dateval" :label="'成功:'+item.successorder+' 总单:'+item.todayorder+' 成率:'+item.payoutrate"/>
+        <van-cell v-for="item in list" :key="item" :title="'￥:'+item.amountreceived" :value="item.statusname" :label="item.create_time"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -20,7 +21,9 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import systemstatisticalreportsApi from "@/api/account/systemstatisticalreports";
+import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
+
+import {getUserId} from '@/utils/auth';
 
 const list = ref([]);
 const loading = ref(false);
@@ -32,13 +35,13 @@ const queryvalue = ref('');
 
 function onLoad(){
 
-   setTimeout(() => {
-     if (refreshing.value) {
-       list.value = [];
-       refreshing.value = false;
-     }
+  setTimeout(() => {
+    if (refreshing.value) {
+      list.value = [];
+      refreshing.value = false;
+    }
     getData();
-   }, 1000);
+  }, 1000);
 
 
 };
@@ -51,8 +54,8 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {accname:queryvalue.value,type:20}
-  let res = await systemstatisticalreportsApi.page(params,page);
+  let params = {accname:queryvalue.value,userid:getUserId(),type:20}
+  let res = await merchantaccountorderApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;

@@ -17,7 +17,7 @@ export default {
   // 登录
   login(data) {
     return request({
-      url: '/app/v1/auth/loginapp',
+      url: '/app/v1/auth/logintelegrame',
       method: 'post',
       data,
       headers: {
@@ -38,6 +38,13 @@ export default {
       url: '/app/v1/auth/getuser',
       method: 'get',
       // params: { systemSource: 0 }
+    });
+  },
+  // 获取用户权限
+  getuseraccount(id) {
+    return request({
+      url: '/app/v1/auth/getuseraccount/'+id,
+      method: 'get',
     });
   },
   listPage(data, headers) {

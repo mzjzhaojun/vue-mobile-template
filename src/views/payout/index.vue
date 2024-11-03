@@ -1,6 +1,6 @@
 <template>
   <div style="margin: 16px;">
-    <van-form label-width="70" @submit="onSubmit">
+    <van-form label-width="90" @submit="onSubmit">
       <van-cell-group inset>
         <van-field
             v-model="formdata.aisleid"
@@ -71,16 +71,16 @@
               @cancel="showBankPicker = false"
           />
         </van-popup>
-        <van-field
-            v-model="formdata.bankaddress"
-            is-link
-            required
-            readonly
-            name="bankaddress"
-            label="银行地址"
-            placeholder="银行地址"
-            @click="showArea = true"
-        />
+<!--        <van-field-->
+<!--            v-model="formdata.bankaddress"-->
+<!--            is-link-->
+<!--            required-->
+<!--            readonly-->
+<!--            name="bankaddress"-->
+<!--            label="银行地址"-->
+<!--            placeholder="银行地址"-->
+<!--            @click="showArea = true"-->
+<!--        />-->
         <van-popup v-model:show="showArea" position="bottom">
           <van-area
               :area-list="areaList"
@@ -132,14 +132,14 @@ let bankcode = ref(null);
 onMounted(async () => {
   let params = {userid:getUserId(),type:70}
   let result = await merchantaisleApi.list(params);
-  columns.value = result.body.records;
+  columns.value = result.body;
 
   let res = await merchantApi.getdata();
   console.info(res)
   formdata.value.totalincome = res.body.balance;
 
   let resbank = await sys_bankApi.list();
-  banks.value = resbank.body.records;
+  banks.value = resbank.body;
 
 });
 
@@ -170,6 +170,7 @@ async function onSubmit(){
     Notify({ type:'danger',message: '输入金额要小于可用余额' });
   }else{
     show.value = true;
+    formdata.value.userid = getUserId();
     formdata.value.aisleid = aisleid;
     formdata.value.bankcode = bankcode;
     let res = await payoutApi.add(formdata.value);

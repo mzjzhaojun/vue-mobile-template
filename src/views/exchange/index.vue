@@ -1,6 +1,6 @@
 <template>
   <div style="margin: 16px;">
-    <van-form label-width="70" @submit="onSubmit">
+    <van-form label-width="90" @submit="onSubmit">
       <van-cell-group inset>
         <van-field
             v-model="formdata.aisleid"
@@ -8,8 +8,8 @@
             is-link
             readonly
             name="picker"
-            label="换汇通道"
-            placeholder="点击选择换汇通道"
+            label="选择通道"
+            placeholder="点击选择通道"
             @click="showPicker = true"
         />
         <van-popup v-model:show="showPicker" position="bottom">
@@ -22,10 +22,10 @@
         </van-popup>
         <van-field
             v-model="formdata.amount"
-            name="换汇金额"
-            label="换汇金额"
-            placeholder="换汇金额"
-            :rules="[{ required: true, message: '请填写换汇金额' }]"
+            name="提款金额"
+            label="提款金额"
+            placeholder="提款金额"
+            :rules="[{ required: true, message: '请填写提款金额' }]"
             required
         />
         <van-field
@@ -72,7 +72,7 @@ import {getTenantId, getToken, getUserId} from "@/utils/auth";
 import merchantApi from "@/api/account/merchant";
 import merchantaisleApi from "@/api/account/merchantaisle";
 import sys_bankApi from "@/api/system/sys_bank";
-import exchangeApi from '@/api/exchange/exchange.js';
+import payoutApi from '@/api/account/payout';
 import {useRouter} from "vue-router";
 import axios from "axios";
 
@@ -95,16 +95,16 @@ let bankcode = ref(null);
 let uploadUrl = import.meta.env.VITE_APP_BASE_FILE_API;
 
 onMounted(async () => {
-  let params = {userid:getUserId(),type:71}
+  let params = {userid:getUserId(),type:70}
   let result = await merchantaisleApi.list(params);
-  columns.value = result.body.records;
+  columns.value = result.body;
 
   let res = await merchantApi.getdata();
   console.info(res)
   formdata.value.totalincome = res.body.balance;
 
   let resbank = await sys_bankApi.list();
-  banks.value = resbank.body.records;
+  banks.value = resbank.body;
 
 });
 
@@ -138,8 +138,8 @@ async function onSubmit(){
     formdata.value.aisleid = aisleid;
     formdata.value.bankcode = bankcode;
     try{
-      postdata = {qrcode:formdata.qrcode,remark:formdata.value.remark,aisleid:formdata.value.aisleid,amount:formdata.value.amount,accname:formdata.value.accname,bankname:'微信支付宝'};
-      let res = await exchangeApi.add(postdata);
+      postdata = {userid:getUserId(),qrcode:formdata.qrcode,remark:formdata.value.remark,aisleid:formdata.value.aisleid,amount:formdata.value.amount,accname:formdata.value.accname,bankname:'微信支付宝',accnumer:1234567890};
+      let res = await payoutApi.add(postdata);
       if(res.code == 200){
         Notify({type:'success',message: '提交成功' });
         setTimeout(() => {

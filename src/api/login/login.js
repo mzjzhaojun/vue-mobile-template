@@ -22,6 +22,11 @@ export async function apiGetUserInfo() {
     return result.body;
 }
 
+export async function apiGetUserAccount(id) {
+    let result = await sysUserApi.getuseraccount(id);
+    return result.body;
+}
+
 
 export async function apilogout() {
     let result = await sysUserApi.logout();

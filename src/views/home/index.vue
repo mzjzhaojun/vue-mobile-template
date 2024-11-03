@@ -2,6 +2,7 @@
   <div>
     <van-search
         v-model="queryvalue"
+        input-align="center"
         placeholder="请输入搜索名称"
         @search="onSearch">
     </van-search>
@@ -11,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.merchantname+'   ￥'+item.amount" :value="item.statusname+'/'+item.notifystatusname" :label="item.qrcodename+' / '+item.create_time"/>
+        <van-cell v-for="item in list" :key="item" :title="item.accname+' ￥'+item.amount" :value="item.statusname" :label="item.bankname+' '+item.create_time"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -20,7 +21,8 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import incomeapi from '@/api/income/income.js';
+import payoutApi from '@/api/account/payout.js';
+import {getUserId} from '@/utils/auth';
 
 const list = ref([]);
 const loading = ref(false);
@@ -32,13 +34,13 @@ const queryvalue = ref('');
 
 function onLoad(){
 
-   setTimeout(() => {
-     if (refreshing.value) {
-       list.value = [];
-       refreshing.value = false;
-     }
+  setTimeout(() => {
+    if (refreshing.value) {
+      list.value = [];
+      refreshing.value = false;
+    }
     getData();
-   }, 1000);
+  }, 1000);
 
 
 };
@@ -51,8 +53,8 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {merchantname:queryvalue.value}
-  let res = await incomeapi.page(params,page);
+  let params = {accname:queryvalue.value,userid:getUserId()}
+  let res = await payoutApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;

@@ -10,6 +10,8 @@ const Rsapublickey = 'Admin-Rsapublickey';
 
 const UserName = 'Admin-UserName';
 
+const Usertype = 'Admin-UserType';
+
 export function getUserName() {
   return Local.get(UserName);
 }
@@ -69,4 +71,17 @@ export function setRsapublickey(rsapublickey) {
 
 export function removeRsapublickey() {
   return Local.remove(Rsapublickey);
+}
+
+
+export function getUserType() {
+  return Local.get(Usertype);
+}
+
+export function setUserType(utype) {
+  return Local.set(Usertype, utype);
+}
+
+export function removeUserType() {
+  return Local.remove(Usertype);
 }
