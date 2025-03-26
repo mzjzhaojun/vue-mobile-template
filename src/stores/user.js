@@ -19,9 +19,9 @@ export const useUserStore = defineStore({
   }),
   actions: {
     Login: function (userInfo) {
-      const username = userInfo.name.trim()
+      const username = userInfo.username.trim()
       const password = userInfo.password.trim()
-      const code = userInfo.tgid.trim()
+      const code = userInfo.code.trim()
       return new Promise((resolve, reject) => {
         apilogin(username, password,code).then(res => {
           console.info(res)

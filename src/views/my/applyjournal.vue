@@ -12,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.remark" :value="item.typename" :label="item.create_time"/>
+        <van-cell v-for="item in list" :key="item" :title="'余额:'+item.balance+' + '+item.amount+''" :value="item.name" :label="item.create_time"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -21,7 +21,7 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import merchantaccountapplyjournaApo from "@/api/merchant/merchantaccountapplyjourna";
+import systemaccountrecordApi from "@/api/account/systemaccountrecord";
 
 import {getUserId} from '@/utils/auth';
 
@@ -55,7 +55,7 @@ function onSearch(){
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
   let params = {accname:queryvalue.value,userid:getUserId()}
-  let res = await merchantaccountapplyjournaApo.page(params,page);
+  let res = await systemaccountrecordApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;

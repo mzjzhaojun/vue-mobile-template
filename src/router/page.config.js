@@ -1,14 +1,5 @@
 export default [
     {
-        name: 'incomerecord',
-        path: '/my/incomerecord',
-        component: () => import('@/views/my/incomerecord.vue'),
-        meta: {
-            title: '充值记录',
-            isNavBar: true
-        }
-    },
-    {
         name: 'balance',
         path: '/my/balance',
         component: () => import('@/views/my/balance.vue'),
@@ -18,11 +9,11 @@ export default [
         }
     },
     {
-        name: 'aisle',
-        path: '/my/aisle',
-        component: () => import('@/views/my/aisle.vue'),
+        name: 'merchant',
+        path: '/my/merchant',
+        component: () => import('@/views/my/merchant.vue'),
         meta: {
-            title: '我的通道',
+            title: '商户列表',
             isNavBar: true
         }
     },
@@ -36,11 +27,11 @@ export default [
         }
     },
     {
-        name: 'withdrawrecord',
-        path: '/my/withdrawrecord',
-        component: () => import('@/views/my/withdrawrecord.vue'),
+        name: 'income',
+        path: '/my/income',
+        component: () => import('@/views/my/income.vue'),
         meta: {
-            title: '提现记录',
+            title: '代收明细',
             isNavBar: true
         }
     },
@@ -49,16 +40,24 @@ export default [
         path: '/my/applyjournal',
         component: () => import('@/views/my/applyjournal.vue'),
         meta: {
-            title: '资金记录',
+            title: '系统收入',
             isNavBar: true
         }
     },
     {
-        name: 'exchangerecord',
-        path: '/exchange/exchangerecord',
-        component: () => import('@/views/exchange/exchangerecord.vue'),
+        name: 'channel',
+        path: '/my/channel',
+        component: () => import('@/views/my/channel.vue'),
         meta: {
-            title: '换汇记录',
+            title: '渠道列表',
+            isNavBar: true
+        }
+    },{
+        name: 'systemstatisticalreports',
+        path: '/my/systemstatisticalreports',
+        component: () => import('@/views/my/systemstatisticalreports.vue'),
+        meta: {
+            title: '代收统计',
             isNavBar: true
         }
     },

@@ -11,7 +11,7 @@
         <div class="profile-number">
           <div class="profile-number-box">
             <span class="profile-number-box-num">￥{{formdata.totalincome}}</span>
-            <span class="profile-number-box-text">充值金额</span>
+            <span class="profile-number-box-text">收入金额</span>
           </div>
           <div class="profile-number-box">
             <span class="profile-number-box-num">￥{{formdata.withdrawamount}}</span>
@@ -24,39 +24,14 @@
         </div>
       </div>
       <van-grid clickable :column-num="4">
-        <van-grid-item icon="balance-pay" text="充值" @click="onbalance" />
-        <van-grid-item icon="refund-o" text="充值记录" @click="onbalancerecord" />
-        <van-grid-item icon="cash-o" text="提现" @click="onwithdraw" />
-        <van-grid-item icon="after-sale" text="提现记录" @click="onwithdrawrecord" />
-        <van-grid-item icon="notes-o" text="换汇记录" @click="onexchangerecord" />
-        <van-grid-item icon="service-o" text="我的通道" @click="onaisle" />
-        <van-grid-item icon="comment-o" text="资金明细" @click="onapplyjournal" />
+        <van-grid-item icon="after-sale" text="代收明细" @click="onincome" />
+        <van-grid-item icon="notes-o" text="渠道列表" @click="onechannel" />
+        <van-grid-item icon="service-o" text="商户列表" @click="onmerchant" />
+        <van-grid-item icon="comment-o" text="系统收入" @click="onapplyjournal" />
+        <van-grid-item icon="refund-o" text="代收统计" @click="onsystemstatisticalreports" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
 
-      <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">欧易一档买入价</van-divider>
-      <van-cell>￥ {{exchangedata.exchange}}
-        <template #title>
-          <span class="custom-title">$ 1</span>
-          <van-icon name="exchange" size="20px"/>
-        </template>
-      </van-cell>
-      <!--
-      <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">USDT换汇(保永久)</van-divider>
-      <van-cell :value="(exchangedata.exchange - 0.1).toFixed(2)">
-        <template #title>
-          <span class="custom-title">1.00</span>
-          <van-icon name="exchange" size="20px"/>
-        </template>
-      </van-cell>
-      <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 5px' }">美金换汇(保永久)</van-divider>
-      <van-cell :value="(exchangedata.exchange - 0.15).toFixed(2)">
-        <template #title>
-          <span class="custom-title">1.00</span>
-          <van-icon name="exchange" size="20px"/>
-        </template>
-      </van-cell>
-      -->
     </div>
   </div>
 </template>
@@ -67,51 +42,43 @@ import {onMounted, reactive,ref} from 'vue';
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { getUserName} from '@/utils/auth'
-import merchantaccountApi from "@/api/merchant/merchantaccount";
-import payconfigApi from "@/api/account/payconfig";
+import systemaccountApi from "@/api/account/systemaccount";
+
 
 const userStore = useUserStore();
 const router = useRouter();
 let formdata = ref({});
-let exchangedata = ref({});
+
 
 onMounted(async () => {
-  let result = await merchantaccountApi.get();
-  console.info(result)
+  let result = await systemaccountApi.get();
   formdata.value = result.body;
-
-  let res = await payconfigApi.get();
-  console.info(res)
-  exchangedata.value = res.body;
 });
 
 function onbalance() {
   router.push({ path: '/my/balance' })
 }
-function onbalancerecord() {
-  router.push({ path: '/my/incomerecord' })
+function onsystemstatisticalreports() {
+  router.push({ path: '/my/systemstatisticalreports' })
 }
 function onwithdraw() {
   router.push({ path: '/my/withdraw' })
 }
-function onwithdrawrecord() {
-  router.push({ path: '/my/withdrawrecord' })
+function onincome() {
+  router.push({ path: '/my/income' })
 }
 
-function onexchangerecord() {
-  router.push({ path: '/exchange/exchangerecord' })
+function onechannel() {
+  router.push({ path: '/my/channel' })
 }
 
-
-function onaisle() {
-  router.push({ path: '/my/aisle' })
+function onmerchant() {
+  router.push({ path: '/my/merchant' })
 }
 
 function onapplyjournal() {
   router.push({ path: '/my/applyjournal' })
 }
-
-
 
 function onLogout() {
   userStore.LogOut();

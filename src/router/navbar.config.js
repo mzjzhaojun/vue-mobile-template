@@ -4,7 +4,7 @@ export default [
         path: '/home',
         component: () => import('@/views/home/index.vue'),
         meta: {
-            title: '首页',
+            title: '代收',
             icon: 'apps-o'
         }
     },
@@ -13,16 +13,16 @@ export default [
         path: '/homepay',
         component: () => import('@/views/payout/index.vue'),
         meta: {
-            title: '银行卡',
+            title: '代付',
             icon: 'balance-o',
         }
     },
     {
-        name: 'exchange',
-        path: '/exchange',
-        component: () => import('@/views/exchange/index.vue'),
+        name: 'system',
+        path: '/system',
+        component: () => import('@/views/system/index.vue'),
         meta: {
-            title: '支付宝',
+            title: '收入',
             icon: 'exchange',
         }
     },

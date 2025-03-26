@@ -2,6 +2,7 @@
   <div>
     <van-search
         v-model="queryvalue"
+        input-align="center"
         placeholder="请输入搜索名称"
         @search="onSearch">
     </van-search>
@@ -11,7 +12,7 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad">
-        <van-cell v-for="item in list" :key="item" :title="item.accname+' ￥'+item.amount" :value="item.statusname" :label="'USDT '+item.amountreceived+' / '+item.create_time"/>
+        <van-cell v-for="item in list" :key="item" :title="'余额:'+item.balance+' + '+item.amount+''" :value="item.name" :label="item.create_time"/>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -20,7 +21,7 @@
 <script setup name="Msg">
 
 import {ref} from 'vue';
-import merchantaccountorderApi from "@/api/exchange/exchangemerchantaccountorder";
+import systemaccountrecordApi from "@/api/account/systemaccountrecord";
 
 import {getUserId} from '@/utils/auth';
 
@@ -34,13 +35,13 @@ const queryvalue = ref('');
 
 function onLoad(){
 
-   setTimeout(() => {
-     if (refreshing.value) {
-       list.value = [];
-       refreshing.value = false;
-     }
+  setTimeout(() => {
+    if (refreshing.value) {
+      list.value = [];
+      refreshing.value = false;
+    }
     getData();
-   }, 1000);
+  }, 1000);
 
 
 };
@@ -53,8 +54,8 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {accname:queryvalue.value,userid:getUserId(),type:22}
-  let res = await merchantaccountorderApi.page(params,page);
+  let params = {accname:queryvalue.value,userid:getUserId()}
+  let res = await systemaccountrecordApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {
     let data = res.body.records;

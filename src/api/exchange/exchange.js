@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 
-const BASE_API = '/rest/v1/exchange';
+const BASE_API = '/rest/v1/system';
 
 export default {
   page(data, headers) {
