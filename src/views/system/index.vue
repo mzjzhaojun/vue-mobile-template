@@ -54,7 +54,7 @@ function onSearch(){
 
 async function getData(){
   let page = {pageNum:pageParams.value,pageSize:10,orderBy:'create_time',dir:'desc'};
-  let params = {accname:queryvalue.value,userid:getUserId()}
+  let params = {accname:queryvalue.value,type:27}
   let res = await systemaccountrecordApi.page(params,page);
   console.info(res)
   if (res.body.records.length > 0) {

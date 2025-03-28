@@ -10,12 +10,12 @@
         </div>
         <div class="profile-number">
           <div class="profile-number-box">
-            <span class="profile-number-box-num">￥{{formdata.totalincome}}</span>
-            <span class="profile-number-box-text">收入金额</span>
+            <span class="profile-number-box-num">￥{{formdata.todayincome}}</span>
+            <span class="profile-number-box-text">今日收入</span>
           </div>
           <div class="profile-number-box">
-            <span class="profile-number-box-num">￥{{formdata.withdrawamount}}</span>
-            <span class="profile-number-box-text">提款金额</span>
+            <span class="profile-number-box-num">￥{{formdata.totalincome}}</span>
+            <span class="profile-number-box-text">收入金额</span>
           </div>
           <div class="profile-number-box">
             <span class="profile-number-box-num">￥{{formdata.balance}}</span>
@@ -27,7 +27,7 @@
         <van-grid-item icon="after-sale" text="代收明细" @click="onincome" />
         <van-grid-item icon="notes-o" text="渠道列表" @click="onechannel" />
         <van-grid-item icon="service-o" text="商户列表" @click="onmerchant" />
-        <van-grid-item icon="comment-o" text="系统收入" @click="onapplyjournal" />
+        <van-grid-item icon="comment-o" text="系统代付" @click="onapplyjournal" />
         <van-grid-item icon="refund-o" text="代收统计" @click="onsystemstatisticalreports" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
