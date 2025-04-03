@@ -27,7 +27,8 @@
         <van-grid-item icon="after-sale" text="代收明细" @click="onincome" />
         <van-grid-item icon="notes-o" text="渠道列表" @click="onechannel" />
         <van-grid-item icon="service-o" text="商户列表" @click="onmerchant" />
-        <van-grid-item icon="comment-o" text="系统代付" @click="onapplyjournal" />
+        <van-grid-item icon="comment-o" text="代付收入" @click="payoutonapplyjournal" />
+        <van-grid-item icon="comment-o" text="代收收入" @click="incomeonapplyjournal" />
         <van-grid-item icon="refund-o" text="代收统计" @click="onsystemstatisticalreports" />
         <van-grid-item icon="close" text="退出" @click="onLogout" />
       </van-grid>
@@ -76,9 +77,14 @@ function onmerchant() {
   router.push({ path: '/my/merchant' })
 }
 
-function onapplyjournal() {
-  router.push({ path: '/my/applyjournal' })
+function payoutonapplyjournal() {
+  router.push({ path: '/my/payoutdetail' })
 }
+
+function incomeonapplyjournal() {
+  router.push({ path: '/my/incomedetail' })
+}
+
 
 function onLogout() {
   userStore.LogOut();

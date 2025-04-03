@@ -1,8 +1,8 @@
 export default [
     {
         name: 'home',
-        path: '/home',
-        component: () => import('@/views/home/index.vue'),
+        path: '/income',
+        component: () => import('@/views/income/index.vue'),
         meta: {
             title: '代收',
             icon: 'apps-o'
@@ -19,10 +19,10 @@ export default [
     },
     {
         name: 'system',
-        path: '/system',
-        component: () => import('@/views/system/index.vue'),
+        path: '/submitpayout',
+        component: () => import('@/views/submitpayout/index.vue'),
         meta: {
-            title: '收入',
+            title: '提现',
             icon: 'exchange',
         }
     },

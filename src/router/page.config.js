@@ -36,11 +36,20 @@ export default [
         }
     },
     {
-        name: 'applyjournal',
-        path: '/my/applyjournal',
-        component: () => import('@/views/my/applyjournal.vue'),
+        name: 'payoutdetail',
+        path: '/my/payoutdetail',
+        component: () => import('@/views/my/payoutdetail.vue'),
         meta: {
-            title: '系统收入',
+            title: '代付明细',
+            isNavBar: true
+        }
+    },
+    {
+        name: 'incomedetail',
+        path: '/my/incomedetail',
+        component: () => import('@/views/my/incomedetail.vue'),
+        meta: {
+            title: '代收明细',
             isNavBar: true
         }
     },

@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 
-const BASE_API = '/rest/v1/system';
+const BASE_API = '/rest/v1/submitpayout';
 
 export default {
   page(data, headers) {
