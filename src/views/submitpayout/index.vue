@@ -1,7 +1,25 @@
 <template>
   <div style="margin: 16px;">
-    <van-form label-width="75" @submit="onSubmit">
+    <van-form label-width="80" @submit="onSubmit">
       <van-cell-group inset>
+        <van-field
+            v-model="formdata.merchantid"
+            required
+            is-link
+            readonly
+            name="picker"
+            label="选择商户"
+            placeholder="点击选择商户"
+            @click="showMerchant = true"
+        />
+        <van-popup v-model:show="showMerchant" position="bottom">
+          <van-picker
+              :columns="merchantcolumns"
+              :columns-field-names="{text:'name',value:'id'}"
+              @confirm="onMerchantConfirm"
+              @cancel="showMerchant = false"
+          />
+        </van-popup>
         <van-field
             v-model="formdata.aisleid"
             required
@@ -14,20 +32,12 @@
         />
         <van-popup v-model:show="showPicker" position="bottom">
           <van-picker
-              :columns="columns"
+              :columns="aislecolumns"
               :columns-field-names="{text:'name',value:'aisleid'}"
               @confirm="onConfirm"
               @cancel="showPicker = false"
           />
         </van-popup>
-        <van-field
-            v-model="formdata.amount"
-            name="提款金额"
-            label="提款金额"
-            placeholder="提款金额"
-            :rules="[{ required: true, message: '请填写提款金额' }]"
-            required
-        />
         <van-field
             v-model="formdata.totalincome"
             name="可用余额"
@@ -35,6 +45,14 @@
             placeholder="可用余额"
             :rules="[{ required: true, message: '可用余额' }]"
             readonly
+            required
+        />
+        <van-field
+            v-model="formdata.amount"
+            name="提款金额"
+            label="提款金额"
+            placeholder="提款金额"
+            :rules="[{ required: true, message: '请填写提款金额' }]"
             required
         />
         <van-field
@@ -106,9 +124,7 @@
 import {onMounted, ref} from 'vue';
 import {Notify} from 'vant';
 import { areaList } from '@vant/area-data';
-import {getUserId} from "@/utils/auth";
 import merchantApi from "@/api/account/merchant";
-import merchantaccountorderApi from "@/api/merchant/merchantaccountorder";
 import merchantaisleApi from "@/api/account/merchantaisle";
 import sys_bankApi from "@/api/system/sys_bank";
 import payoutApi from '@/api/account/payout';
@@ -121,27 +137,47 @@ let formdata = ref({})
 let show = ref(false);
 let showBankPicker = ref(false);
 let showPicker = ref(false);
+let showMerchant = ref(false);
 let showArea = ref(false);
-let columns = ref([]);
+let merchantcolumns = ref([]);
+let aislecolumns = ref([]);
 let banks = ref([]);
 let aisleid = ref(null)
+let merchantid = ref(null)
 let aredaddress = ref(null)
 let bankname = ref(null);
 let bankcode = ref(null);
 
 onMounted(async () => {
-  let params = {userid:getUserId(),type:70}
-  let result = await merchantaisleApi.list(params);
-  columns.value = result.body.records;
 
-  let res = await merchantApi.getdata();
-  console.info(res)
-  formdata.value.totalincome = res.body.balance;
+  let mresult = await merchantApi.list();
+  merchantcolumns.value = mresult.body;
 
   let resbank = await sys_bankApi.list();
-  banks.value = resbank.body.records;
+  banks.value = resbank.body;
 
 });
+
+
+
+function onMerchantConfirm (selectedOptions){
+  merchantid = selectedOptions.id;
+  formdata.value.merchantid = selectedOptions.name;
+  showMerchant.value = false;
+  getBalance(merchantid);
+  getAisle(merchantid);
+};
+
+async function getBalance(id) {
+ let res = await merchantApi.get(id);
+ formdata.value.totalincome = res.body.usdtbalance;
+}
+
+async function getAisle(id){
+  let params = {merchantid:id,type:70}
+  let result = await merchantaisleApi.list(params);
+  aislecolumns.value = result.body;
+}
 
 function onConfirm (selectedOptions){
   aisleid = selectedOptions.aisleid;
@@ -170,6 +206,7 @@ async function onSubmit(){
     Notify({ type:'danger',message: '输入金额要小于可用余额' });
   }else{
     show.value = true;
+    formdata.value.merchantid = merchantid;
     formdata.value.aisleid = aisleid;
     formdata.value.bankcode = bankcode;
     let res = await payoutApi.add(formdata.value);
