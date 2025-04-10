@@ -150,7 +150,7 @@ let bankcode = ref(null);
 
 onMounted(async () => {
 
-  let mresult = await merchantApi.list();
+  let mresult = await merchantApi.list({type:70});
   merchantcolumns.value = mresult.body;
 
   let resbank = await sys_bankApi.list();
