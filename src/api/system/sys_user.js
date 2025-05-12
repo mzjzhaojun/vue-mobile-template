@@ -17,7 +17,7 @@ export default {
   // 登录
   login(data) {
     return request({
-      url: '/app/v1/auth/logintelegrame',
+      url: '/app/v1/auth/loginapp',
       method: 'post',
       data,
       headers: {
