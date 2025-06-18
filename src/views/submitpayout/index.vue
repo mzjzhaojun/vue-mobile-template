@@ -89,16 +89,16 @@
               @cancel="showBankPicker = false"
           />
         </van-popup>
-        <van-field
-            v-model="formdata.bankaddress"
-            is-link
-            required
-            readonly
-            name="bankaddress"
-            label="银行地址"
-            placeholder="银行地址"
-            @click="showArea = true"
-        />
+<!--        <van-field-->
+<!--            v-model="formdata.bankaddress"-->
+<!--            is-link-->
+<!--            required-->
+<!--            readonly-->
+<!--            name="bankaddress"-->
+<!--            label="银行地址"-->
+<!--            placeholder="银行地址"-->
+<!--            @click="showArea = true"-->
+<!--        />-->
         <van-popup v-model:show="showArea" position="bottom">
           <van-area
               :area-list="areaList"
